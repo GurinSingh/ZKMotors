@@ -1,4 +1,4 @@
-namespace ZKMotors.Server
+namespace ZK.Presentation
 {
     public class WeatherForecast
     {

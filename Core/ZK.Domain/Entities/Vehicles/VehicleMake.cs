@@ -8,7 +8,15 @@ namespace ZK.Domain.Entities.Vehicles
 {
     public class VehicleMake
     {
+        public VehicleMake()
+        {
+            this.Vehicles = new HashSet<Vehicle>();
+            this.VehicleModels = new HashSet<VehicleModel>();
+        }
         public int VehicleMakeId { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<VehicleModel> VehicleModels { get; set; }
     }
 }

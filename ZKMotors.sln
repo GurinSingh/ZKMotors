@@ -15,15 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Contracts", "Core\ZK.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Domain", "Core\ZK.Domain\ZK.Domain.csproj", "{7395EC6D-4E88-4E5F-B891-B7BB77FC8728}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Services", "Core\Services\DK.Services.csproj", "{80B3678E-8F9B-4AFE-97EC-221CD9252261}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Services", "Core\Services\ZK.Services.csproj", "{80B3678E-8F9B-4AFE-97EC-221CD9252261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Services.Abstractions", "Core\Services.Abstractions\DK.Services.Abstractions.csproj", "{BA1FDAE1-90CE-45A0-9CBF-D208BA388E9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Services.Abstractions", "Core\Services.Abstractions\ZK.Services.Abstractions.csproj", "{BA1FDAE1-90CE-45A0-9CBF-D208BA388E9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Infrastructure\Persistence\Persistence.csproj", "{781C8B99-444F-4D93-A213-42361F234F0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Persistence", "Infrastructure\Persistence\ZK.Persistence.csproj", "{781C8B99-444F-4D93-A213-42361F234F0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Infrastructure\Presentation\Presentation.csproj", "{2D944263-74D8-45F7-96AD-5F6F6FAA091D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZK.Presentation", "Infrastructure\Presentation\ZK.Presentation.csproj", "{2D944263-74D8-45F7-96AD-5F6F6FAA091D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +77,7 @@ Global
 		{80B3678E-8F9B-4AFE-97EC-221CD9252261} = {5752CEED-F939-44D6-88AD-74D0F8ADA0E0}
 		{BA1FDAE1-90CE-45A0-9CBF-D208BA388E9A} = {5752CEED-F939-44D6-88AD-74D0F8ADA0E0}
 		{781C8B99-444F-4D93-A213-42361F234F0D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2D944263-74D8-45F7-96AD-5F6F6FAA091D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0CE70D3F-360C-47C6-9B5B-FA7773447F12}
