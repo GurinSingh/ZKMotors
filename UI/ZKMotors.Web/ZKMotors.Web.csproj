@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <SpaRoot>..\zkmotors.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
@@ -18,9 +18,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Services\ZK.Services.csproj" />
+    <ProjectReference Include="..\..\Core\ZK.Domain\ZK.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\ZK.Persistence.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Presentation\ZK.Presentation.csproj" />
     <ProjectReference Include="..\zkmotors.client\ZKMotors.client.esproj">

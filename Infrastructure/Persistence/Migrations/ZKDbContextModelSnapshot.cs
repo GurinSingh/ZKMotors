@@ -48,8 +48,8 @@ namespace ZK.Persistence.Migrations
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<bool>("Sold")
                         .HasColumnType("bit");
@@ -69,6 +69,68 @@ namespace ZK.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Vehicles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleId = 1,
+                            Color = "White",
+                            Description = "2025 Toyota Camry in white color",
+                            MakeId = 1,
+                            ModelId = 1,
+                            Price = 25000.00m,
+                            Slug = "camry-2025-1",
+                            Sold = false,
+                            Year = 2025
+                        },
+                        new
+                        {
+                            VehicleId = 2,
+                            Color = "Blue",
+                            Description = "2024 Toyota Corolla in blue color",
+                            MakeId = 1,
+                            ModelId = 2,
+                            Price = 20000.00m,
+                            Slug = "corolla-2024-2",
+                            Sold = true,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            VehicleId = 3,
+                            Color = "Red",
+                            Description = "2023 Ford Focus in red",
+                            MakeId = 2,
+                            ModelId = 4,
+                            Price = 22000.00m,
+                            Slug = "focus-2023-3",
+                            Sold = false,
+                            Year = 2023
+                        },
+                        new
+                        {
+                            VehicleId = 4,
+                            Color = "Black",
+                            Description = "2024 Ford Mustang GT",
+                            MakeId = 2,
+                            ModelId = 5,
+                            Price = 35000.00m,
+                            Slug = "mustang-2024-4",
+                            Sold = false,
+                            Year = 2024
+                        },
+                        new
+                        {
+                            VehicleId = 5,
+                            Color = "Gray",
+                            Description = "2023 Honda Civic in gray color",
+                            MakeId = 3,
+                            ModelId = 6,
+                            Price = 21000.00m,
+                            Slug = "civic-2023-5",
+                            Sold = true,
+                            Year = 2023
+                        });
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleMake", b =>
@@ -89,6 +151,28 @@ namespace ZK.Persistence.Migrations
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("VehicleMakeId"));
 
                     b.ToTable("VehicleMakes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleMakeId = 1,
+                            Name = "Toyota"
+                        },
+                        new
+                        {
+                            VehicleMakeId = 2,
+                            Name = "Ford"
+                        },
+                        new
+                        {
+                            VehicleMakeId = 3,
+                            Name = "Honda"
+                        },
+                        new
+                        {
+                            VehicleMakeId = 4,
+                            Name = "Chevrolet"
+                        });
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleModel", b =>
@@ -114,6 +198,62 @@ namespace ZK.Persistence.Migrations
                     b.HasIndex("MakeId");
 
                     b.ToTable("VehicleModels", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleModelId = 1,
+                            MakeId = 1,
+                            Name = "Camry"
+                        },
+                        new
+                        {
+                            VehicleModelId = 2,
+                            MakeId = 1,
+                            Name = "Corolla"
+                        },
+                        new
+                        {
+                            VehicleModelId = 3,
+                            MakeId = 1,
+                            Name = "RAV4"
+                        },
+                        new
+                        {
+                            VehicleModelId = 4,
+                            MakeId = 2,
+                            Name = "F-150"
+                        },
+                        new
+                        {
+                            VehicleModelId = 5,
+                            MakeId = 2,
+                            Name = "Mustang"
+                        },
+                        new
+                        {
+                            VehicleModelId = 6,
+                            MakeId = 3,
+                            Name = "Civic"
+                        },
+                        new
+                        {
+                            VehicleModelId = 7,
+                            MakeId = 3,
+                            Name = "Accord"
+                        },
+                        new
+                        {
+                            VehicleModelId = 8,
+                            MakeId = 4,
+                            Name = "Silverado"
+                        },
+                        new
+                        {
+                            VehicleModelId = 9,
+                            MakeId = 4,
+                            Name = "Malibu"
+                        });
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>

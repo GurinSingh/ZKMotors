@@ -16,7 +16,7 @@ namespace ZK.Persistence.Configurations
             builder.ToTable("Vehicles");
 
             builder.HasKey(v => v.VehicleId).IsClustered(true);
-            builder.Property(v => v.Slug).IsRequired().HasMaxLength(100);
+            builder.Property(v => v.Slug).IsRequired().HasMaxLength(45);
             builder.Property(v => v.MakeId).IsRequired();
             builder.Property(v => v.ModelId).IsRequired();
             builder.Property(v => v.Year);

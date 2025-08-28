@@ -12,7 +12,7 @@ namespace ZK.Persistence
     {
         public ZKDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Vehicle> Vehiles { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleMake> VehicleMakes { get; set; }
         public DbSet<VehicleModel> VehicleModels { get; set; }
 
@@ -20,31 +20,105 @@ namespace ZK.Persistence
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ZKDbContext).Assembly);
 
-//            modelBuilder.Entity<VehicleMake>().HasData(
-//                new VehicleMake { VehicleMakeId = 1, Name = "Toyota" },
-//                new VehicleMake { VehicleMakeId = 2, Name = "Honda" },
-//                new VehicleMake { VehicleMakeId = 3, Name = "Ford" }
-//            );
-//            modelBuilder.Entity<VehicleModel>().HasData(
-//    new VehicleModel
-//    {
-//        VehicleModelId = 1,
-//        Name = "Corolla",
-//        MakeId = 1        // Set the foreign key value ONLY
-//    },
-//    new VehicleModel
-//    {
-//        VehicleModelId = 2,
-//        Name = "Civic",
-//        MakeId = 2
-//    }
-//);
+            // Seed VehicleMakes
+            modelBuilder.Entity<VehicleMake>().HasData(
+                new VehicleMake { VehicleMakeId = 1, Name = "Toyota" },
+                new VehicleMake { VehicleMakeId = 2, Name = "Ford" },
+                new VehicleMake { VehicleMakeId = 3, Name = "Honda" },
+                new VehicleMake { VehicleMakeId = 4, Name = "Chevrolet" }
+            );
 
-            //modelBuilder.Entity<Vehicle>().HasData(
-            //    new Vehicle { VehicleId = 1, MakeId = 1, ModelId = 1, Year = 2020, Color = "Red", Price = 27000, Slug = "corolla", Sold = true, Description = "This is toyota corolla" },
-            //    new Vehicle { VehicleId = 2, MakeId = 2, ModelId = 2, Year = 2019, Color = "Green", Price = 18000, Slug = "civic", Sold = false, Description = "This is honda civic" },
-            //    new Vehicle { VehicleId = 3, MakeId = 3, ModelId = 3, Year = 2021, Color = "Blue", Price = 21000, Slug = "mustang", Sold = false, Description = "This is ford mustang" }
-            //);
+            // Seed VehicleModels
+            modelBuilder.Entity<VehicleModel>().HasData(
+                new VehicleModel { VehicleModelId = 1, Name = "Camry", MakeId = 1, Make = null },
+                new VehicleModel { VehicleModelId = 2, Name = "Corolla", MakeId = 1, Make = null },
+                new VehicleModel { VehicleModelId = 3, Name = "RAV4", MakeId = 1, Make = null },
+                new VehicleModel { VehicleModelId = 4, Name = "F-150", MakeId = 2, Make = null },
+                new VehicleModel { VehicleModelId = 5, Name = "Mustang", MakeId = 2, Make = null },
+                new VehicleModel { VehicleModelId = 6, Name = "Civic", MakeId = 3, Make = null },
+                new VehicleModel { VehicleModelId = 7, Name = "Accord", MakeId = 3, Make = null },
+                new VehicleModel { VehicleModelId = 8, Name = "Silverado", MakeId = 4, Make = null },
+                new VehicleModel { VehicleModelId = 9, Name = "Malibu", MakeId = 4, Make = null }
+            );
+
+            // Seed Vehicles
+            modelBuilder.Entity<Vehicle>().HasData(
+                new Vehicle
+                {
+                    VehicleId = 1,
+                    Slug = "camry-2025-1",
+                    MakeId = 1,
+                    ModelId = 1,
+                    Year = 2025,
+                    Sold = false,
+                    Color = "White",
+                    Description = "2025 Toyota Camry in white color",
+                    Price = 25000.00m,
+
+                    Make = null,
+                    Model = null
+                },
+                new Vehicle
+                {
+                    VehicleId = 2,
+                    Slug = "corolla-2024-2",
+                    MakeId = 1,
+                    ModelId = 2,
+                    Year = 2024,
+                    Sold = true,
+                    Color = "Blue",
+                    Description = "2024 Toyota Corolla in blue color",
+                    Price = 20000.00m,
+
+                    Make = null,
+                    Model = null
+                },
+                new Vehicle
+                {
+                    VehicleId = 3,
+                    Slug = "focus-2023-3",
+                    MakeId = 2,
+                    ModelId = 4,
+                    Year = 2023,
+                    Sold = false,
+                    Color = "Red",
+                    Description = "2023 Ford Focus in red",
+                    Price = 22000.00m,
+
+                    Make = null,
+                    Model = null
+                },
+                new Vehicle
+                {
+                    VehicleId = 4,
+                    Slug = "mustang-2024-4",
+                    MakeId = 2,
+                    ModelId = 5,
+                    Year = 2024,
+                    Sold = false,
+                    Color = "Black",
+                    Description = "2024 Ford Mustang GT",
+                    Price = 35000.00m,
+
+                    Make = null,
+                    Model = null
+                },
+                new Vehicle
+                {
+                    VehicleId = 5,
+                    Slug = "civic-2023-5",
+                    MakeId = 3,
+                    ModelId = 6,
+                    Year = 2023,
+                    Sold = true,
+                    Color = "Gray",
+                    Description = "2023 Honda Civic in gray color",
+                    Price = 21000.00m,
+
+                    Make = null,
+                    Model = null
+                }
+            );
         }
     }
 }

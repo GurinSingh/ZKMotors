@@ -19,7 +19,6 @@ namespace ZK.Persistence.Configurations
             builder.Property(vm => vm.VehicleModelId);
             builder.Property(vm => vm.Name).IsRequired().HasMaxLength(100);
 
-
             builder.Property(v => v.VehicleModelId)
                 .UseIdentityColumn(1, 1);
 
