@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Entities.Sales;
 
 namespace ZK.Domain.Entities.Vehicles
 {
@@ -13,6 +14,7 @@ namespace ZK.Domain.Entities.Vehicles
         {
             this.Make = new();
             this.Model = new();
+            //this.SaleHistory = new();
         }
         public int VehicleId { get; set; }
         public string Slug { get; set; }
@@ -23,8 +25,10 @@ namespace ZK.Domain.Entities.Vehicles
         public string Color { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public int Mileage { get; set; }
 
         public virtual VehicleMake Make { get; set; }
         public virtual VehicleModel Model { get; set; }
+        //public virtual SaleHistory SaleHistory { get; set; }
     }
 }

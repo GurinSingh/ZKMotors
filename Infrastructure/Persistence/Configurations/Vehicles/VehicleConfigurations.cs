@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZK.Domain.Entities.Vehicles;
 
-namespace ZK.Persistence.Configurations
+namespace ZK.Persistence.Configurations.Vehicles
 {
     public sealed class VehicleConfigurations : IEntityTypeConfiguration<Vehicle>
     {
@@ -19,9 +19,10 @@ namespace ZK.Persistence.Configurations
             builder.Property(v => v.Slug).IsRequired().HasMaxLength(45);
             builder.Property(v => v.MakeId).IsRequired();
             builder.Property(v => v.ModelId).IsRequired();
-            builder.Property(v => v.Year);
+            builder.Property(v => v.Year).IsRequired();
             builder.Property(v => v.Sold);
             builder.Property(v => v.Color);
+            builder.Property(v => v.Mileage);
             builder.Property(v => v.Description).HasMaxLength(500);
             builder.Property(v => v.Price).HasPrecision(10, 2);
 
@@ -31,15 +32,10 @@ namespace ZK.Persistence.Configurations
             builder.HasIndex(v => v.Slug)
                 .IsUnique();
 
-            builder.HasOne(v => v.Make)
-                .WithMany(v => v.Vehicles)
-                .HasForeignKey(v => v.MakeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(v=> v.Model)
-                .WithMany(v=> v.Vehicles)
-                .HasForeignKey(v=> v.ModelId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(v=> v.SaleHistory)
+            //    .WithOne(sh=> sh.Vehicle)
+            //    .HasForeignKey<Domain.Entities.Sales.SaleHistory>(sh=> sh.VehicleId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

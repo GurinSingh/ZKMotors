@@ -15,5 +15,6 @@ namespace ZK.Contracts.DTOs.Vehicles
         public string Color { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public int Mileage { get; set; }
     }
 }

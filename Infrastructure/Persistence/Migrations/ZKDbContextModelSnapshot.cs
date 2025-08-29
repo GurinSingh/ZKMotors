@@ -39,6 +39,9 @@ namespace ZK.Persistence.Migrations
                     b.Property<int>("MakeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
@@ -77,6 +80,7 @@ namespace ZK.Persistence.Migrations
                             Color = "White",
                             Description = "2025 Toyota Camry in white color",
                             MakeId = 1,
+                            Mileage = 0,
                             ModelId = 1,
                             Price = 25000.00m,
                             Slug = "camry-2025-1",
@@ -89,6 +93,7 @@ namespace ZK.Persistence.Migrations
                             Color = "Blue",
                             Description = "2024 Toyota Corolla in blue color",
                             MakeId = 1,
+                            Mileage = 0,
                             ModelId = 2,
                             Price = 20000.00m,
                             Slug = "corolla-2024-2",
@@ -101,6 +106,7 @@ namespace ZK.Persistence.Migrations
                             Color = "Red",
                             Description = "2023 Ford Focus in red",
                             MakeId = 2,
+                            Mileage = 0,
                             ModelId = 4,
                             Price = 22000.00m,
                             Slug = "focus-2023-3",
@@ -113,6 +119,7 @@ namespace ZK.Persistence.Migrations
                             Color = "Black",
                             Description = "2024 Ford Mustang GT",
                             MakeId = 2,
+                            Mileage = 0,
                             ModelId = 5,
                             Price = 35000.00m,
                             Slug = "mustang-2024-4",
@@ -125,6 +132,7 @@ namespace ZK.Persistence.Migrations
                             Color = "Gray",
                             Description = "2023 Honda Civic in gray color",
                             MakeId = 3,
+                            Mileage = 0,
                             ModelId = 6,
                             Price = 21000.00m,
                             Slug = "civic-2023-5",

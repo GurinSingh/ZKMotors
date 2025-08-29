@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZK.Domain.Entities.Vehicles;
 
-namespace ZK.Persistence.Configurations
+namespace ZK.Persistence.Configurations.Vehicles
 {
     public sealed class VehicleMakeConfigurations : IEntityTypeConfiguration<VehicleMake>
     {
@@ -21,12 +21,12 @@ namespace ZK.Persistence.Configurations
             builder.Property(v => v.VehicleMakeId)
                 .UseIdentityColumn(1, 1);
 
-            builder.HasMany<Vehicle>(vm => vm.Vehicles)
+            builder.HasMany(vm => vm.Vehicles)
                 .WithOne(v => v.Make)
                 .HasForeignKey(v => v.MakeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany<VehicleModel>(vm=> vm.VehicleModels)
+            builder.HasMany(vm=> vm.VehicleModels)
                 .WithOne(vm=> vm.Make)
                 .HasForeignKey(vm=> vm.MakeId)
                 .OnDelete(DeleteBehavior.NoAction);
