@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -78,6 +79,31 @@ namespace ZK.Persistence.Migrations
                         principalColumn: "VehicleModelId");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SaleHistories",
+                columns: table => new
+                {
+                    SaleHistoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    CustomerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CustomerPhoneNo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleHistories", x => x.SaleHistoryId)
+                        .Annotation("SqlServer:Clustered", true);
+                    table.ForeignKey(
+                        name: "FK_SaleHistories_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "VehicleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "VehicleMakes",
                 columns: new[] { "VehicleMakeId", "Name" },
@@ -118,6 +144,12 @@ namespace ZK.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_SaleHistories_VehicleId",
+                table: "SaleHistories",
+                column: "VehicleId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VehicleModels_MakeId",
                 table: "VehicleModels",
                 column: "MakeId");
@@ -142,6 +174,9 @@ namespace ZK.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SaleHistories");
+
             migrationBuilder.DropTable(
                 name: "Vehicles");
 

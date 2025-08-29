@@ -10,12 +10,6 @@ namespace ZK.Domain.Entities.Vehicles
 {
     public class Vehicle
     {
-        public Vehicle()
-        {
-            this.Make = new();
-            this.Model = new();
-            //this.SaleHistory = new();
-        }
         public int VehicleId { get; set; }
         public string Slug { get; set; }
         public int MakeId { get; set; }
@@ -29,6 +23,6 @@ namespace ZK.Domain.Entities.Vehicles
 
         public virtual VehicleMake Make { get; set; }
         public virtual VehicleModel Model { get; set; }
-        //public virtual SaleHistory SaleHistory { get; set; }
+        public virtual SaleHistory SaleHistory { get; set; }
     }
 }

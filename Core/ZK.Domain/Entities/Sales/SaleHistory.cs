@@ -10,11 +10,6 @@ namespace ZK.Domain.Entities.Sales
 {
     public class SaleHistory
     {
-        public SaleHistory() 
-        { 
-            //this.Vehicle = new();
-        }
-
         public int SaleHistoryId { get; set; }
         public int VehicleId { get; set; }
         public DateTime SaleDate { get; set; }
@@ -23,6 +18,6 @@ namespace ZK.Domain.Entities.Sales
         public string CustomerPhoneNo { get; set; }
         public string Notes { get; set; }
 
-        //public virtual Vehicle Vehicle { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace ZK.Domain.Entities.Vehicles
         public VehicleModel()
         {
             this.Vehicles = new HashSet<Vehicle>();
-            this.Make = new VehicleMake();
         }
         public int VehicleModelId { get; set; }
         public int MakeId { get; set; }

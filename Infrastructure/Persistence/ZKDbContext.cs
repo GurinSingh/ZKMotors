@@ -30,15 +30,15 @@ namespace ZK.Persistence
 
             // Seed VehicleModels
             modelBuilder.Entity<VehicleModel>().HasData(
-                new VehicleModel { VehicleModelId = 1, Name = "Camry", MakeId = 1, Make = null },
-                new VehicleModel { VehicleModelId = 2, Name = "Corolla", MakeId = 1, Make = null },
-                new VehicleModel { VehicleModelId = 3, Name = "RAV4", MakeId = 1, Make = null },
-                new VehicleModel { VehicleModelId = 4, Name = "F-150", MakeId = 2, Make = null },
-                new VehicleModel { VehicleModelId = 5, Name = "Mustang", MakeId = 2, Make = null },
-                new VehicleModel { VehicleModelId = 6, Name = "Civic", MakeId = 3, Make = null },
-                new VehicleModel { VehicleModelId = 7, Name = "Accord", MakeId = 3, Make = null },
-                new VehicleModel { VehicleModelId = 8, Name = "Silverado", MakeId = 4, Make = null },
-                new VehicleModel { VehicleModelId = 9, Name = "Malibu", MakeId = 4, Make = null }
+                new VehicleModel { VehicleModelId = 1, Name = "Camry", MakeId = 1 },
+                new VehicleModel { VehicleModelId = 2, Name = "Corolla", MakeId = 1 },
+                new VehicleModel { VehicleModelId = 3, Name = "RAV4", MakeId = 1 },
+                new VehicleModel { VehicleModelId = 4, Name = "F-150", MakeId = 2 },
+                new VehicleModel { VehicleModelId = 5, Name = "Mustang", MakeId = 2 },
+                new VehicleModel { VehicleModelId = 6, Name = "Civic", MakeId = 3 },
+                new VehicleModel { VehicleModelId = 7, Name = "Accord", MakeId = 3 },
+                new VehicleModel { VehicleModelId = 8, Name = "Silverado", MakeId = 4 },
+                new VehicleModel { VehicleModelId = 9, Name = "Malibu", MakeId = 4 }
             );
 
             // Seed Vehicles
@@ -54,9 +54,6 @@ namespace ZK.Persistence
                     Color = "White",
                     Description = "2025 Toyota Camry in white color",
                     Price = 25000.00m,
-
-                    Make = null,
-                    Model = null
                 },
                 new Vehicle
                 {
@@ -69,9 +66,6 @@ namespace ZK.Persistence
                     Color = "Blue",
                     Description = "2024 Toyota Corolla in blue color",
                     Price = 20000.00m,
-
-                    Make = null,
-                    Model = null
                 },
                 new Vehicle
                 {
@@ -84,9 +78,6 @@ namespace ZK.Persistence
                     Color = "Red",
                     Description = "2023 Ford Focus in red",
                     Price = 22000.00m,
-
-                    Make = null,
-                    Model = null
                 },
                 new Vehicle
                 {
@@ -99,9 +90,6 @@ namespace ZK.Persistence
                     Color = "Black",
                     Description = "2024 Ford Mustang GT",
                     Price = 35000.00m,
-
-                    Make = null,
-                    Model = null
                 },
                 new Vehicle
                 {
@@ -114,9 +102,6 @@ namespace ZK.Persistence
                     Color = "Gray",
                     Description = "2023 Honda Civic in gray color",
                     Price = 21000.00m,
-
-                    Make = null,
-                    Model = null
                 }
             );
         }
