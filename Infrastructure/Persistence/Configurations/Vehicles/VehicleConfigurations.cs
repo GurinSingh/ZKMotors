@@ -20,7 +20,7 @@ namespace ZK.Persistence.Configurations.Vehicles
             builder.Property(v => v.MakeId).IsRequired();
             builder.Property(v => v.ModelId).IsRequired();
             builder.Property(v => v.Year).IsRequired();
-            builder.Property(v => v.Sold);
+            builder.Property(v => v.IsSold);
             builder.Property(v => v.Color);
             builder.Property(v => v.Mileage);
             builder.Property(v => v.Description).HasMaxLength(500);

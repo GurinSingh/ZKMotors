@@ -16,5 +16,6 @@ namespace ZK.Contracts.DTOs.Vehicles
         public decimal Price { get; set; }
         public int Mileage { get; set; }
         public string Description { get; set; } = string.Empty;
+        public bool IsSold { get; set; }
     }
 }

@@ -29,32 +29,42 @@ namespace ZK.Persistence.Repositories.Vehicles
 
         public async Task<IEnumerable<Vehicle>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Where(v=> !v.Sold).Include(p=>p.Make).Include(p=>p.Model).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.Where(v=> !v.IsSold).WithAllJoins().ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<Vehicle>> GetAllIncludingSoldOutAsync(CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Include(p => p.Make).Include(p => p.Model).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().ToListAsync(cancellationToken);
         }
 
         public async Task<Vehicle> GetByIdAsync(int vehicleId, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.FindAsync(vehicleId, cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().FirstOrDefaultAsync(v=> v.VehicleId == vehicleId, cancellationToken);
         }
 
         public async Task<Vehicle> GetBySlugAsync(string slug, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Include(v=>v.Make).Include(v=>v.Model).FirstOrDefaultAsync(v => v.Slug == slug, cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().FirstOrDefaultAsync(v => v.Slug == slug, cancellationToken);
         }
 
         public async Task<IEnumerable<Vehicle>> GetByMakeIdAsync(int makeId, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Where(v => v.MakeId == makeId).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().Where(v => v.MakeId == makeId).ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<Vehicle>> GetByModelIdAsync(int modelId, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Where(v => v.ModelId == modelId).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().Where(v => v.ModelId == modelId).ToListAsync(cancellationToken);
         }
     }
+    public static class VehicleQueryExtensions
+    {
+        public static IQueryable<Vehicle> WithAllJoins(this IQueryable<Vehicle> query)
+        {
+            return query.Include(v => v.Make)
+                        .Include(v => v.Model)
+                        .Include(v => v.SaleHistory);
+        }
+    }
+
 }

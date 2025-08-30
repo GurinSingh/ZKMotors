@@ -11,7 +11,7 @@ namespace ZK.Contracts.DTOs.Vehicles
         public int MakeId { get; set; }
         public int ModelId { get; set; }
         public int Year { get; set; }
-        public bool Sold { get; set; }
+        public bool IsSold { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

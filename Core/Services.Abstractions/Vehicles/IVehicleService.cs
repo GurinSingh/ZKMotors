@@ -17,5 +17,6 @@ namespace ZK.Services.Abstractions.Vehicles
         //Task<IEnumerable<Vehicle>> GetByMakeAsync(int makeId, CancellationToken cancellationToken);
         //Task<IEnumerable<Vehicle>> GetByModelAsync(int modelId, CancellationToken cancellationToken);
         Task<ViewVehicleDTO> GetBySlugAsync(string slug, CancellationToken cancellationToken);
+        Task MarkAsSold(int vehicleId, CancellationToken cancellationToken);
     }
 }

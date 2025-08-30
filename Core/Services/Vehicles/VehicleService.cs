@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZK.Contracts.DTOs.Vehicles;
+using ZK.Domain.Entities.Sales;
 using ZK.Domain.Entities.Vehicles;
 using ZK.Domain.Respositories;
 using ZK.Domain.Utilities;
@@ -77,7 +78,31 @@ namespace ZK.Services.Vehicles
                 await this._repositoryManager.UnitOfWork.RollbackTransactionAsync();
                 throw;
             }
+        }
+
+        public async Task MarkAsSold(int vehicleId, CancellationToken cancellationToken)
+        {
+            var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
+            if (vehicle == null)
+                throw new Exception("Vehicle not found");
+            if (vehicle.IsSold)
+                throw new Exception("Vehicle is already marked as sold");
+            vehicle.IsSold = true;
+            await this._repositoryManager.VehicleRepository.UpdateAsync(vehicle, cancellationToken);
+
+            //Adding entry to SaleHistory
+            var saleHistory = new SaleHistory
+            {
+                VehicleId = vehicle.VehicleId,
+                SaleDate = DateTime.UtcNow,
+                SalePrice = vehicle.Price,
+                CustomerName = "N/A",
+                CustomerPhoneNo = "N/A",
+                Notes = "Marked as sold without customer details",
+            };
+            await this._repositoryManager.SaleHistoryRepository.AddAsync(saleHistory, cancellationToken);
             
+            await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         #region private methods
@@ -91,6 +116,7 @@ namespace ZK.Services.Vehicles
                 Year = vehicle.Year,
                 Price = vehicle.Price,
                 Color = vehicle.Color,
+                IsSold = vehicle.IsSold,
                 Description = vehicle.Description
             };
         }
@@ -104,7 +130,7 @@ namespace ZK.Services.Vehicles
                 Price = addVehicleDTO.Price,
                 Color = addVehicleDTO.Color,
                 Description = addVehicleDTO.Description,
-                Sold = false
+                IsSold = false
             };
         }
         #endregion

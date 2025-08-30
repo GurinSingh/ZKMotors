@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Entities.Sales;
 
 namespace ZK.Domain.Respositories.Sales
 {
     public interface ISaleHistoryRepository
     {
-        Task<int> AddSaleHistoryAsync(Entities.Sales.SaleHistory saleHistory);
-        Task<Entities.Sales.SaleHistory> GetSaleHistoryByIdAsync(int saleHistoryId);
-        Task<IEnumerable<Entities.Sales.SaleHistory>> GetAllSaleHistoriesAsync();
-        Task UpdateSaleHistoryAsync(Entities.Sales.SaleHistory saleHistory);
-        Task DeleteSaleHistoryAsync(int saleHistoryId);
+        Task AddAsync(SaleHistory saleHistory, CancellationToken cancellationToken);
+        Task<SaleHistory> GetByIdAsync(int saleHistoryId, CancellationToken cancellationToken);
+        Task<IEnumerable<SaleHistory>> GetAllAsync(CancellationToken cancellationToken);
+        Task UpdateAsync(SaleHistory saleHistory, CancellationToken cancellationToken);
     }
 }

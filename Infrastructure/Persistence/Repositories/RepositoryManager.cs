@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZK.Domain.Respositories;
+using ZK.Domain.Respositories.Sales;
 using ZK.Domain.Respositories.Vehicles;
+using ZK.Persistence.Repositories.Sales;
 using ZK.Persistence.Repositories.Vehicles;
 
 namespace ZK.Persistence.Repositories
@@ -14,6 +16,7 @@ namespace ZK.Persistence.Repositories
         private readonly Lazy<IVehicleRepository> _lazyVehicleRepository;
         private readonly Lazy<IVehicleMakeRepository> _lazyVehicleMakeRepository;
         private readonly Lazy<IVehicleModelRepository> _lazyVehicleModelRepository;
+        private readonly Lazy<ISaleHistoryRepository> _lazySaleHistoryRepository;
 
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
@@ -22,6 +25,7 @@ namespace ZK.Persistence.Repositories
             this._lazyVehicleRepository = new Lazy<IVehicleRepository>(() => new VehicleRepository(context));
             this._lazyVehicleMakeRepository = new Lazy<IVehicleMakeRepository>(() => new VehicleMakeRepository(context));
             this._lazyVehicleModelRepository = new Lazy<IVehicleModelRepository>(() => new VehicleModelRepository(context));
+            this._lazySaleHistoryRepository = new Lazy<ISaleHistoryRepository>(() => new SaleHistoryRepository(context));
 
             this._lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(context));
         }
@@ -29,6 +33,7 @@ namespace ZK.Persistence.Repositories
         public IVehicleRepository VehicleRepository => this._lazyVehicleRepository.Value;
         public IVehicleMakeRepository VehicleMakeRepository => this._lazyVehicleMakeRepository.Value;
         public IVehicleModelRepository VehicleModelRepository => this._lazyVehicleModelRepository.Value;
+        public ISaleHistoryRepository SaleHistoryRepository => this._lazySaleHistoryRepository.Value;
 
         public IUnitOfWork UnitOfWork => this._lazyUnitOfWork.Value;
     }

@@ -1,43 +1,41 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Entities.Sales;
 using ZK.Domain.Respositories.Sales;
 
 namespace ZK.Persistence.Repositories.Sales
 {
-    public class SaleHistoryRepository
+    public class SaleHistoryRepository: ISaleHistoryRepository
     {
         private readonly ZKDbContext _context;
         public SaleHistoryRepository(ZKDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
-        //public async Task<int> AddSaleHistoryAsync(Domain.Entities.Sales.SaleHistory saleHistory)
-        //{
-        //    await _context.SaleHistories.AddAsync(saleHistory);
-        //}
+        public async Task AddAsync(SaleHistory saleHistory, CancellationToken cancellationToken)
+        {
+            await this._context.SaleHistories.AddAsync(saleHistory, cancellationToken);
+        }
 
-        //public Task DeleteSaleHistoryAsync(int saleHistoryId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<IEnumerable<SaleHistory>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            return await this._context.SaleHistories.ToListAsync(cancellationToken);
+        }
 
-        //public Task<IEnumerable<Domain.Entities.Sales.SaleHistory>> GetAllSaleHistoriesAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<SaleHistory> GetByIdAsync(int saleHistoryId, CancellationToken cancellationToken)
+        {
+            return await this._context.SaleHistories.FindAsync(saleHistoryId, cancellationToken);
+        }
 
-        //public Task<Domain.Entities.Sales.SaleHistory> GetSaleHistoryByIdAsync(int saleHistoryId)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task UpdateSaleHistoryAsync(Domain.Entities.Sales.SaleHistory saleHistory)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task UpdateAsync(SaleHistory saleHistory, CancellationToken cancellationToken)
+        {
+            this._context.SaleHistories.Update(saleHistory);
+            await Task.CompletedTask;
+        }
     }
 }

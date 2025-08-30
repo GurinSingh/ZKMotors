@@ -30,5 +30,15 @@ namespace ZK.Presentation.Areas.Admin.Controllers
             await this._serviceManager.VehicleService.AddAsync(value, cancellationToken);
             return Ok();
         }
+
+        [HttpPost("MarkAsSold")]
+        public async Task<IActionResult> MarkAsSoldAsync([FromQuery] int vehicleId, CancellationToken cancellationToken)
+        {
+            var vehicle = await this._serviceManager.VehicleService.GetByIdAsync(vehicleId, cancellationToken);
+            if (vehicle == null)
+                return NotFound();
+            await this._serviceManager.VehicleService.MarkAsSold(vehicleId, cancellationToken);
+            return Ok();
+        }
     }
 }

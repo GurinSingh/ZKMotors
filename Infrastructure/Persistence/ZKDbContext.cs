@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Entities.Sales;
 using ZK.Domain.Entities.Vehicles;
 
 namespace ZK.Persistence
@@ -15,6 +16,7 @@ namespace ZK.Persistence
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleMake> VehicleMakes { get; set; }
         public DbSet<VehicleModel> VehicleModels { get; set; }
+        public DbSet<SaleHistory> SaleHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,7 +52,7 @@ namespace ZK.Persistence
                     MakeId = 1,
                     ModelId = 1,
                     Year = 2025,
-                    Sold = false,
+                    IsSold = false,
                     Color = "White",
                     Description = "2025 Toyota Camry in white color",
                     Price = 25000.00m,
@@ -62,7 +64,7 @@ namespace ZK.Persistence
                     MakeId = 1,
                     ModelId = 2,
                     Year = 2024,
-                    Sold = true,
+                    IsSold = false,
                     Color = "Blue",
                     Description = "2024 Toyota Corolla in blue color",
                     Price = 20000.00m,
@@ -74,7 +76,7 @@ namespace ZK.Persistence
                     MakeId = 2,
                     ModelId = 4,
                     Year = 2023,
-                    Sold = false,
+                    IsSold = false,
                     Color = "Red",
                     Description = "2023 Ford Focus in red",
                     Price = 22000.00m,
@@ -86,7 +88,7 @@ namespace ZK.Persistence
                     MakeId = 2,
                     ModelId = 5,
                     Year = 2024,
-                    Sold = false,
+                    IsSold = false,
                     Color = "Black",
                     Description = "2024 Ford Mustang GT",
                     Price = 35000.00m,
@@ -98,7 +100,7 @@ namespace ZK.Persistence
                     MakeId = 3,
                     ModelId = 6,
                     Year = 2023,
-                    Sold = true,
+                    IsSold = false,
                     Color = "Gray",
                     Description = "2023 Honda Civic in gray color",
                     Price = 21000.00m,
