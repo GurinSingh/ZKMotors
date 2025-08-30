@@ -32,11 +32,15 @@ namespace ZK.Persistence.Configurations.Vehicles
             builder.HasIndex(v => v.Slug)
                 .IsUnique();
 
-            //builder.HasOne(v=> v.SaleHistory)
-            //    .WithOne(sh=> sh.Vehicle)
-            //    .HasForeignKey<Domain.Entities.Sales.SaleHistory>(sh=> sh.VehicleId)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(v => v.SaleHistory)
+                .WithOne(sh => sh.Vehicle)
+                .HasForeignKey<Domain.Entities.Sales.SaleHistory>(sh => sh.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(v => v.VehicleImage)
+                .WithOne(vi => vi.Vehicle)
+                .HasForeignKey(vi => vi.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

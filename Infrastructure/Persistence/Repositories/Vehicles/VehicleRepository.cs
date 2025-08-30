@@ -63,7 +63,8 @@ namespace ZK.Persistence.Repositories.Vehicles
         {
             return query.Include(v => v.Make)
                         .Include(v => v.Model)
-                        .Include(v => v.SaleHistory);
+                        .Include(v => v.SaleHistory)
+                        .Include(v=> v.VehicleImage);
         }
     }
 

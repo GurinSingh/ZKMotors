@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace ZK.Services.Vehicles
         public async Task<ViewVehicleDTO> GetByIdAsync(int vehicleId, CancellationToken cancellationToken)
         {
             var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
-            if (vehicle == null) 
+            if (vehicle == null)
                 return null;
             return this._mapToDTO(vehicle);
         }
@@ -47,11 +48,11 @@ namespace ZK.Services.Vehicles
         {
             var vehicle = this._mapToEntity(addVehicleDTO);
 
-            vehicle.Make = this._repositoryManager.VehicleMakeRepository.GetByIdAsync(vehicle.MakeId, cancellationToken).Result;
-            if(vehicle.Make == null)
+            vehicle.Make = await this._repositoryManager.VehicleMakeRepository.GetByIdAsync(vehicle.MakeId, cancellationToken);
+            if (vehicle.Make == null)
                 throw new Exception("Invalid MakeId");
 
-            vehicle.Model = this._repositoryManager.VehicleModelRepository.GetByIdAsync(vehicle.ModelId, cancellationToken).Result;
+            vehicle.Model = await this._repositoryManager.VehicleModelRepository.GetByIdAsync(vehicle.ModelId, cancellationToken);
             if (vehicle.Model == null)
                 throw new Exception("Invalid ModelId");
 
@@ -101,7 +102,7 @@ namespace ZK.Services.Vehicles
                 Notes = "Marked as sold without customer details",
             };
             await this._repositoryManager.SaleHistoryRepository.AddAsync(saleHistory, cancellationToken);
-            
+
             await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }
 
@@ -117,11 +118,34 @@ namespace ZK.Services.Vehicles
                 Price = vehicle.Price,
                 Color = vehicle.Color,
                 IsSold = vehicle.IsSold,
-                Description = vehicle.Description
+                Description = vehicle.Description,
+
+                Images = vehicle.VehicleImage.Select(vi=> new ViewVehicleImageDTO
+                {
+                    ContentType = vi.ContentType,
+                    FileName = vi.FileName,
+                    ImageBase64 = Convert.ToBase64String(vi.ImageData)
+                }).ToList()
             };
         }
         private Vehicle _mapToEntity(AddVehicleDTO addVehicleDTO)
         {
+            Func<IFormFile, byte[]> _convertToByteArray = (imageFile) =>
+            {
+                byte[] imageBytes = [];
+
+                if (imageFile.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        imageFile.CopyTo(ms);
+
+                        imageBytes = ms.ToArray();
+                    }
+                }
+
+                return imageBytes;
+            };
             return new Vehicle
             {
                 MakeId = addVehicleDTO.MakeId,
@@ -130,7 +154,16 @@ namespace ZK.Services.Vehicles
                 Price = addVehicleDTO.Price,
                 Color = addVehicleDTO.Color,
                 Description = addVehicleDTO.Description,
-                IsSold = false
+                IsSold = false,
+                Mileage = addVehicleDTO.Mileage,
+
+                VehicleImage = addVehicleDTO.Images.Select(i => new VehicleImage
+                {
+                    VehicleId = i.VehicleId,
+                    ImageData = _convertToByteArray(i.ImageData),
+                    ContentType = i.ContentType,
+                    FileName = i.FileName
+                }).ToList()
             };
         }
         #endregion
