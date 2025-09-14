@@ -11,5 +11,6 @@ namespace ZK.Contracts.DTOs.Vehicles
         public string ImageBase64 { get; set; }
         public string ContentType { get; set; }
         public string FileName { get; set; }
+        public DateTime AddedDateTime { get; set; }
     }
 }

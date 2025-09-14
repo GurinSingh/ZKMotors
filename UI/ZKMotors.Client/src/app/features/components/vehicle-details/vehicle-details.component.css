@@ -1,0 +1,81 @@
+.carousel-indicator-container{
+    padding: 0 5px;
+}
+    .carousel-indicator-container img{
+        margin: 0 0 5px 0;
+        border: 1px solid #000000;
+    }
+.carousel-slideshow-container{
+    padding: 0 5px 0 5px;
+}
+
+.carousel .carousel-item {
+  transition: none !important;
+  transform: none !important;
+}
+.carousel-item img{
+    height: 300px;
+    width: 100px;
+    object-fit: cover;
+}
+.carousel .carousel-inner {
+  transition: none !important;
+}
+
+.vehicle-info{
+    color: #565669;
+    font-size: 12px;
+}
+.diffrentiator{
+    border: 1px solid #D5D9D9;
+    margin: 0 8px;
+}
+.vehicle-info hr{
+    margin: 5px 0;
+}
+.accident-info{
+    text-align: left;
+}
+.vehicle-price{
+    margin: 15px 0;
+}
+.vehicle-price .price-symbol{
+    font-size: 1em;
+    margin: 0;
+    line-height: 40px;
+    vertical-align: top;
+}
+.vehicle-price .price-whole{
+    font-size: 2em;
+    font-weight: bolder;
+    margin: 0;
+    line-height: 40px;
+    vertical-align: top;
+}
+.get-quote{
+    margin: 0 auto 15px;
+}
+.get-quote button{
+    padding: 2px 30px;
+}
+.get-related-vehicles, .vehicle-description{
+    margin: 0 auto 15px;
+}
+.related-vehicles .card{
+    height: 100%;
+    overflow: hidden;
+}
+.related-vehicles .card-title{
+    font-size: 10px;
+    margin-bottom: 0;
+}
+.related-vehicles .card-body{
+    padding: 0;
+    text-align: center;
+}
+.related-vehicles .card-footer{
+    font-size: 10px;
+    padding: 0 5px 5px;
+    text-align: right;
+    border: 0;
+}

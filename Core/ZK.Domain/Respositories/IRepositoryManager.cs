@@ -14,6 +14,8 @@ namespace ZK.Domain.Respositories
         IVehicleMakeRepository VehicleMakeRepository { get; }
         IVehicleModelRepository VehicleModelRepository { get; }
         ISaleHistoryRepository SaleHistoryRepository { get; }
+        IBodyTypeRepository BodyTypeRepository { get; }
+        IVehicleImageRepository VehicleImageRepository { get; }
 
         IUnitOfWork UnitOfWork { get; }
     }

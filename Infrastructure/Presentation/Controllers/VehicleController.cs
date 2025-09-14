@@ -10,7 +10,7 @@ using ZK.Services.Abstractions;
 namespace ZK.Presentation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class VehicleController: ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -31,5 +31,11 @@ namespace ZK.Presentation.Controllers
             return Ok(vehicles);
         }
         
+        [HttpGet("GetRelated/{vehicleId}")]
+        public async Task<IActionResult> GetRelatedByBodyType(int vehicleId, CancellationToken cancellationToken)
+        {
+            var vehicles = await this._serviceManager.VehicleService.GetRelatedVehicleById(vehicleId, cancellationToken);
+            return Ok(vehicles);
+        }
     }
 }

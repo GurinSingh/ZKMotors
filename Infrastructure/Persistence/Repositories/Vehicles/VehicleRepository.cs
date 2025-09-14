@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ZK.Domain.Entities.Vehicles;
@@ -32,11 +33,6 @@ namespace ZK.Persistence.Repositories.Vehicles
             return await this._context.Vehicles.Where(v=> !v.IsSold).WithAllJoins().ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetAllIncludingSoldOutAsync(CancellationToken cancellationToken)
-        {
-            return await this._context.Vehicles.WithAllJoins().ToListAsync(cancellationToken);
-        }
-
         public async Task<Vehicle> GetByIdAsync(int vehicleId, CancellationToken cancellationToken)
         {
             return await this._context.Vehicles.WithAllJoins().FirstOrDefaultAsync(v=> v.VehicleId == vehicleId, cancellationToken);
@@ -47,14 +43,13 @@ namespace ZK.Persistence.Repositories.Vehicles
             return await this._context.Vehicles.WithAllJoins().FirstOrDefaultAsync(v => v.Slug == slug, cancellationToken);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetByMakeIdAsync(int makeId, CancellationToken cancellationToken)
+        public async Task<Vehicle> GetAsync(Expression<Func<Vehicle, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.WithAllJoins().Where(v => v.MakeId == makeId).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.WithAllJoins().FirstOrDefaultAsync(predicate, cancellationToken);
         }
-
-        public async Task<IEnumerable<Vehicle>> GetByModelIdAsync(int modelId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Vehicle>> GetManyAsync(Expression<Func<Vehicle, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.WithAllJoins().Where(v => v.ModelId == modelId).ToListAsync(cancellationToken);
+            return await this._context.Vehicles.Where(predicate).WithAllJoins().ToListAsync(cancellationToken);
         }
     }
     public static class VehicleQueryExtensions
@@ -64,7 +59,12 @@ namespace ZK.Persistence.Repositories.Vehicles
             return query.Include(v => v.Make)
                         .Include(v => v.Model)
                         .Include(v => v.SaleHistory)
-                        .Include(v=> v.VehicleImage);
+                        .Include(v=> v.VehicleImages)
+                        .Include(v => v.BodyType)
+                        .Include(v => v.Engine)
+                        .Include(v => v.Transmission)
+                        .Include(v => v.FuelType)
+                        .Include(v => v.Drivetrain);
         }
     }
 

@@ -29,7 +29,7 @@ namespace ZK.Services.Vehicles
         }
         public async Task<ViewVehicleDTO> GetBySlugAsync(string slug, CancellationToken cancellationToken)
         {
-            var vehicle = await this._repositoryManager.VehicleRepository.GetBySlugAsync(slug, cancellationToken);
+            var vehicle = await this._repositoryManager.VehicleRepository.GetAsync(v=> v.Slug == slug, cancellationToken);
             if (vehicle == null)
                 return null;
             return this._mapToDTO(vehicle);
@@ -37,11 +37,6 @@ namespace ZK.Services.Vehicles
         public async Task<IEnumerable<ViewVehicleDTO>> GetAllAsync(CancellationToken cancellationToken)
         {
             var vehicles = await this._repositoryManager.VehicleRepository.GetAllAsync(cancellationToken);
-            return vehicles.Select(v => this._mapToDTO(v));
-        }
-        public async Task<IEnumerable<ViewVehicleDTO>> GetAllIncludingSoldOutAsync(CancellationToken cancellationToken)
-        {
-            var vehicles = await this._repositoryManager.VehicleRepository.GetAllIncludingSoldOutAsync(cancellationToken);
             return vehicles.Select(v => this._mapToDTO(v));
         }
         public async Task AddAsync(AddVehicleDTO addVehicleDTO, CancellationToken cancellationToken)
@@ -56,7 +51,7 @@ namespace ZK.Services.Vehicles
             if (vehicle.Model == null)
                 throw new Exception("Invalid ModelId");
 
-            string slug = $"{vehicle.Year}-{vehicle.Make.Name}-{vehicle.Model.Name}";
+            string slug = $"{vehicle.Make.Name}-{vehicle.Model.Name}";
 
             vehicle.Slug = UrlSlugger.GenerateSlug(slug);
 
@@ -80,7 +75,6 @@ namespace ZK.Services.Vehicles
                 throw;
             }
         }
-
         public async Task MarkAsSold(int vehicleId, CancellationToken cancellationToken)
         {
             var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
@@ -95,7 +89,7 @@ namespace ZK.Services.Vehicles
             var saleHistory = new SaleHistory
             {
                 VehicleId = vehicle.VehicleId,
-                SaleDate = DateTime.UtcNow,
+                SaleDateTime = DateTime.UtcNow,
                 SalePrice = vehicle.Price,
                 CustomerName = "N/A",
                 CustomerPhoneNo = "N/A",
@@ -105,27 +99,118 @@ namespace ZK.Services.Vehicles
 
             await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }
+        public async Task<IEnumerable<ViewVehicleDTO>> GetRelatedVehicleById(int vehicleId, CancellationToken cancellationToken)
+        {
+            var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
+            if (vehicle == null)
+                throw new Exception("Vehicle not found");
+            var relatedVehicles = await this._repositoryManager.VehicleRepository.GetManyAsync(v=> v.BodyTypeId == vehicle.BodyTypeId && v.VehicleId != vehicle.VehicleId, cancellationToken);
+            return relatedVehicles.Take(5).Select(v => this._mapToDTO(v));
+        }
+        public async Task UpdateAsync(UpdateVehicleDTO updateVehicleDTO, CancellationToken cancellationToken)
+        {
+            var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(updateVehicleDTO.Id, cancellationToken);
+            if (vehicle == null)
+                throw new Exception("Vehicle not found");
 
+            vehicle.ModelId = updateVehicleDTO.ModelId;
+            vehicle.MakeId = updateVehicleDTO.MakeId;
+            vehicle.Year = updateVehicleDTO.Year;
+            vehicle.Price = updateVehicleDTO.Price;
+            vehicle.ExteriorColor = updateVehicleDTO.ExteriorColor;
+            vehicle.InteriorColor = updateVehicleDTO.InteriorColor;
+            vehicle.Description = updateVehicleDTO.Description;
+            vehicle.Mileage = updateVehicleDTO.Mileage;
+            vehicle.VIN = updateVehicleDTO.VIN;
+            vehicle.Trim = updateVehicleDTO.Trim;
+            vehicle.BodyTypeId = updateVehicleDTO.BodyTypeId;
+            vehicle.EngineId = updateVehicleDTO.EngineId;
+            vehicle.TransmissionId = updateVehicleDTO.TransmissionId;
+            vehicle.FuelTypeId = updateVehicleDTO.FuelTypeId;
+            vehicle.DrivetrainId = updateVehicleDTO.DrivetrainId;
+            vehicle.NumberOfOwners = updateVehicleDTO.NumberOfOwners;
+            vehicle.NumberOfDoors = updateVehicleDTO.NumberOfDoors;
+            vehicle.SeatingCapacity = updateVehicleDTO.SeatingCapacity;
+            vehicle.Features = updateVehicleDTO.Features;
+            vehicle.LastUpdatedDateTime = DateTime.UtcNow;
+
+            vehicle.Make = await this._repositoryManager.VehicleMakeRepository.GetByIdAsync(vehicle.MakeId, cancellationToken);
+            if (vehicle.Make == null)
+                throw new Exception("Invalid MakeId");
+
+            vehicle.Model = await this._repositoryManager.VehicleModelRepository.GetByIdAsync(vehicle.ModelId, cancellationToken);
+            if (vehicle.Model == null)
+                throw new Exception("Invalid ModelId");
+
+            Func<IFormFile, byte[]> _convertToByteArray = (imageFile) =>
+            {
+                byte[] imageBytes = [];
+                if (imageFile.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        imageFile.CopyTo(ms);
+                        imageBytes = ms.ToArray();
+                    }
+                }
+                return imageBytes;
+            };
+
+            //delete existing images
+            await this._repositoryManager.VehicleImageRepository.DeleteAllbyVehicleIdAsync(vehicle.VehicleId, cancellationToken);
+            
+            if (updateVehicleDTO.Images != null && updateVehicleDTO.Images.Count > 0)
+            {
+                vehicle.VehicleImages = updateVehicleDTO.Images.Select(i => new VehicleImage
+                {
+                    VehicleId = i.VehicleId,
+                    ImageData = _convertToByteArray(i.ImageData),
+                    ContentType = i.ContentType,
+                    FileName = i.FileName,
+                    AddedDateTime = DateTime.UtcNow
+                }).ToList();
+            }
+
+            await this._repositoryManager.VehicleRepository.UpdateAsync(vehicle, cancellationToken);
+            await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
+        }
         #region private methods
         private ViewVehicleDTO _mapToDTO(Vehicle vehicle)
         {
             return new ViewVehicleDTO
             {
                 Id = vehicle.VehicleId,
-                Make = vehicle.Make.Name,
+                Slug = vehicle.Slug,
                 Model = vehicle.Model.Name,
+                Make = vehicle.Make.Name,
                 Year = vehicle.Year,
-                Price = vehicle.Price,
-                Color = vehicle.Color,
                 IsSold = vehicle.IsSold,
+                ExteriorColor = vehicle.ExteriorColor,
+                InteriorColor = vehicle.InteriorColor,
                 Description = vehicle.Description,
+                Price = vehicle.Price,
+                Mileage = vehicle.Mileage,
+                VIN = vehicle.VIN,
+                Trim = vehicle.Trim,
+                BodyType = vehicle.BodyType.Name,
+                Engine = vehicle.Engine.Name,
+                Transmission = vehicle.Transmission.Name,
+                FuelType = vehicle.FuelType.Name,
+                Drivetrain = vehicle.Drivetrain.Name,
+                NumberOfOwners = vehicle.NumberOfOwners,
+                NumberOfDoors = vehicle.NumberOfDoors,
+                SeatingCapacity = vehicle.SeatingCapacity,
+                Features = vehicle.Features,
+                AddedDateTime = vehicle.AddedDateTime,
+                LastUpdatedDateTime = vehicle.LastUpdatedDateTime,
 
-                Images = vehicle.VehicleImage.Select(vi=> new ViewVehicleImageDTO
+                Images = vehicle.VehicleImages.Select(vi => new ViewVehicleImageDTO
                 {
                     ContentType = vi.ContentType,
                     FileName = vi.FileName,
-                    ImageBase64 = Convert.ToBase64String(vi.ImageData)
-                }).ToList()
+                    ImageBase64 = Convert.ToBase64String(vi.ImageData),
+                    AddedDateTime = vi.AddedDateTime
+                }).OrderByDescending(v => v.AddedDateTime).ToList()
             };
         }
         private Vehicle _mapToEntity(AddVehicleDTO addVehicleDTO)
@@ -152,21 +237,35 @@ namespace ZK.Services.Vehicles
                 ModelId = addVehicleDTO.ModelId,
                 Year = addVehicleDTO.Year,
                 Price = addVehicleDTO.Price,
-                Color = addVehicleDTO.Color,
+                ExteriorColor = addVehicleDTO.ExteriorColor,
+                InteriorColor = addVehicleDTO.InteriorColor,
                 Description = addVehicleDTO.Description,
                 IsSold = false,
                 Mileage = addVehicleDTO.Mileage,
+                VIN = addVehicleDTO.VIN,
+                Trim = addVehicleDTO.Trim,
+                BodyTypeId = addVehicleDTO.BodyTypeId,
+                EngineId = addVehicleDTO.EngineId,
+                TransmissionId = addVehicleDTO.TransmissionId,
+                FuelTypeId = addVehicleDTO.FuelTypeId,
+                DrivetrainId = addVehicleDTO.DrivetrainId,
+                NumberOfOwners = addVehicleDTO.NumberOfOwners,
+                NumberOfDoors = addVehicleDTO.NumberOfDoors,
+                SeatingCapacity = addVehicleDTO.SeatingCapacity,
+                Features = addVehicleDTO.Features,
+                AddedDateTime = DateTime.UtcNow,
+                LastUpdatedDateTime = DateTime.UtcNow,
 
-                VehicleImage = addVehicleDTO.Images.Select(i => new VehicleImage
+                VehicleImages = addVehicleDTO.Images.Select(i => new VehicleImage
                 {
                     VehicleId = i.VehicleId,
                     ImageData = _convertToByteArray(i.ImageData),
                     ContentType = i.ContentType,
-                    FileName = i.FileName
+                    FileName = i.FileName,
+                    AddedDateTime = DateTime.UtcNow
                 }).ToList()
             };
         }
         #endregion
-
     }
 }

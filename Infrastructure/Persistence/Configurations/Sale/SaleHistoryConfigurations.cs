@@ -17,7 +17,7 @@ namespace ZK.Persistence.Configurations.Sale
 
             builder.HasKey(sh => sh.SaleHistoryId).IsClustered(true);
             builder.Property(sh => sh.VehicleId).IsRequired();
-            builder.Property(sh => sh.SaleDate).IsRequired();
+            builder.Property(sh => sh.SaleDateTime).IsRequired();
             builder.Property(sh => sh.SalePrice).HasPrecision(10, 2);
             builder.Property(sh => sh.CustomerName).IsRequired().HasMaxLength(100);
             builder.Property(sh => sh.CustomerPhoneNo).HasMaxLength(10);

@@ -13,6 +13,7 @@ namespace ZK.Domain.Entities.Vehicles
         public byte[] ImageData { get; set; }
         public string ContentType { get; set; }
         public string FileName { get; set; }
+        public DateTime AddedDateTime { get; set; }
 
         public virtual Vehicle Vehicle { get; set; }
     }

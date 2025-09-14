@@ -17,6 +17,8 @@ namespace ZK.Persistence.Repositories
         private readonly Lazy<IVehicleMakeRepository> _lazyVehicleMakeRepository;
         private readonly Lazy<IVehicleModelRepository> _lazyVehicleModelRepository;
         private readonly Lazy<ISaleHistoryRepository> _lazySaleHistoryRepository;
+        private readonly Lazy<IBodyTypeRepository> _lazyBodyTypeRepository;
+        private readonly Lazy<VehicleImageRepository> _lazyVehicleImageRepository;
 
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
@@ -26,6 +28,8 @@ namespace ZK.Persistence.Repositories
             this._lazyVehicleMakeRepository = new Lazy<IVehicleMakeRepository>(() => new VehicleMakeRepository(context));
             this._lazyVehicleModelRepository = new Lazy<IVehicleModelRepository>(() => new VehicleModelRepository(context));
             this._lazySaleHistoryRepository = new Lazy<ISaleHistoryRepository>(() => new SaleHistoryRepository(context));
+            this._lazyBodyTypeRepository = new Lazy<IBodyTypeRepository>(() => new BodyTypeRepository(context));
+            this._lazyVehicleImageRepository = new Lazy<VehicleImageRepository>(() => new VehicleImageRepository(context));
 
             this._lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(context));
         }
@@ -34,6 +38,8 @@ namespace ZK.Persistence.Repositories
         public IVehicleMakeRepository VehicleMakeRepository => this._lazyVehicleMakeRepository.Value;
         public IVehicleModelRepository VehicleModelRepository => this._lazyVehicleModelRepository.Value;
         public ISaleHistoryRepository SaleHistoryRepository => this._lazySaleHistoryRepository.Value;
+        public IBodyTypeRepository BodyTypeRepository => this._lazyBodyTypeRepository.Value;
+        public IVehicleImageRepository VehicleImageRepository => this._lazyVehicleImageRepository.Value;
 
         public IUnitOfWork UnitOfWork => this._lazyUnitOfWork.Value;
     }

@@ -1,0 +1,117 @@
+<div class="row">
+    <!-- vehicle carousel -->
+    <div id="vehicles-list-carousel-container" class="col-sm-5">
+        <div id="vehicle-list-carousel" class="carousel" data-bs-ride="carousel">
+            <div class="row">
+                <div class="col-sm-2 carousel-indicator-container">
+                    <!-- indicators -->
+                    <!-- <img class="w-100 d-block" *ngFor="let vehicleImage of vehicleListModel.images; let i=index" [src]="'data:'+vehicleImage.contentType+';base64,'+vehicleImage.imageBase64" alt="{{vehicleImage.fileName}}" data-bs-target="#vehicle-list-carousel" [attr.data-bs-slide-to]="i" [class.active]="i==0"> -->
+                    <img class="w-100 d-block active" src="https://picsum.photos/id/1/200/300" alt="test" data-bs-target="#vehicle-list-carousel" data-bs-slide-to="0">
+                    <img class="w-100 d-block" src="https://picsum.photos/id/2/200/300" alt="test" data-bs-target="#vehicle-list-carousel" data-bs-slide-to="1">
+                    
+                </div>
+                <div class="col-sm-10 carousel-slideshow-container">
+                    <!-- slideshow -->
+                    <div class="carousel-inner">
+                        <!-- <div class="carousel-item" [class.active]="i==0" *ngFor="let vehicleImage of vehicleListModel.images; let i=index">
+                            <img [src]="'data:'+vehicleImage.contentType+';base64,'+vehicleImage.imageBase64" alt="{{vehicleImage.fileName}}" class="d-block w-100">
+                             <img src="https://fastly.picsum.photos/id/1/5000/3333.jpg?hmac=Asv2DU3rA_5D1xSe22xZK47WEAN0wjWeFOhzd13ujW4" alt="{{vehicleImage.fileName}}" class="d-block w-100">
+                        </div> -->
+                        <div class="carousel-item active">
+                             <img src="https://picsum.photos/id/1/200/300" alt="tese" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                             <img src="https://picsum.photos/id/2/200/300" alt="tese" class="d-block w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- vehicle details-->
+    <div id="vehicles-list-details-container" class="col-sm-4">
+        <div class="vehicle-name">
+            <h5>{{vehicleListModel.make+' '+ vehicleListModel.model}}</h5>
+        </div>
+        <div class="vehicle-info">
+            <span>{{vehicleListModel.mileage}}</span>
+            <span class="diffrentiator"></span>
+            <span>{{vehicleListModel.year}}</span>
+            <span class="diffrentiator"></span>
+            <span>{{vehicleListModel.exteriorColor}}</span>
+        </div>
+        <hr>
+        <div class="accident-info">
+            <span class="badge" [ngClass]="vehicleListModel.images.length > 0 ? 'bg-warning' : 'bg-success'">{{vehicleListModel.description}}</span>
+        </div>
+        <div class="vehicle-price">
+            <span class="price-symbol d-inline-block">$</span>
+            <span class="price-whole d-inline-block">{{vehicleListModel.price}}</span>
+        </div>
+        <div class="get-quote">
+            <button class="btn btn-success">Get a Quote</button>
+            <hr>
+        </div>
+        <div class="vehicle-basic-specifications">
+            <div class="row">
+                <div class="col-12 fw-bolder">
+                    <h5>Vehicle Details</h5>
+                </div>
+            </div>
+            <div class="row" *ngFor="let item of basicIdentifications | keyvalue">
+                <div class="col-6 col-sm-7 col-lg-6 fw-bold">{{item.key}}</div>
+                <div class="col-6 col-sm-5 col-lg-6">{{item.value}}</div>
+            </div>
+            <hr>
+        </div>
+        <div class="vehicle-description">
+            <div class="row">
+                <div class="col-12 fw-bolder">
+                    <h5>About this vehicle</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">{{vehicleListModel.description}}</div>
+            </div>
+            <hr>
+        </div>
+        <div class="related-vehicles" *ngIf="this.relatedVehicles.length > 0">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Related vehicles</h5>
+                </div>
+            </div>
+            <div class="row row-cols-3">
+                <div class="col" *ngFor="let item of this.relatedVehicles">
+                    <div class="card">
+                        <img src="https://picsum.photos/200/300" alt="{{item.make+' '+item.model}}" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-title">{{item.make+' '+item.model+ ' '+ item.year}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="d-inline-block" [routerLink]="['/vehicle/get', item.slug]">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- coming soon -->
+    <div class="col-sm-3">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 fw-bolder">
+        <h4>Technical Specifications</h4>
+    </div>
+    <div class="row row-cols-5">
+        <ng-container *ngFor="let item of technicalSpecifications | keyvalue; let i = index">
+            <div class="col fw-bold" [class.offset-2]="i%2 != 0">{{item.key}}</div>
+            <div class="col">{{item.value}}</div>
+        </ng-container>
+        
+    </div>
+</div>

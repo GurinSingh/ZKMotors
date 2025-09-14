@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiEndpoints } from 'environments/api-endpoints';
 
 interface WeatherForecast {
   date: string;
@@ -15,12 +16,13 @@ interface WeatherForecast {
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
+  link: string = ApiEndpoints.getVehicleBySlug+ '/toyota-camry-2022-se';
   public forecasts: WeatherForecast[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.getForecasts();
+    //this.getForecasts();
   }
 
   getForecasts() {

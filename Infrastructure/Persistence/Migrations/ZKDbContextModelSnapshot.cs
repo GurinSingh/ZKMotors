@@ -43,7 +43,7 @@ namespace ZK.Persistence.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("SaleDate")
+                    b.Property<DateTime>("SaleDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("SalePrice")
@@ -63,6 +63,325 @@ namespace ZK.Persistence.Migrations
                     b.ToTable("SaleHistories", (string)null);
                 });
 
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.BodyType", b =>
+                {
+                    b.Property<int>("BodyTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BodyTypeId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BodyTypeId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("BodyTypeId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("BodyTypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            BodyTypeId = 1,
+                            Description = "A passenger car in a three-box configuration with separate compartments for engine, passenger, and cargo.",
+                            Name = "Sedan"
+                        },
+                        new
+                        {
+                            BodyTypeId = 2,
+                            Description = "Vehicle with an open cargo area and passenger cab, used for hauling.",
+                            Name = "Pickup Truck"
+                        },
+                        new
+                        {
+                            BodyTypeId = 3,
+                            Description = "Sport Utility Vehicle combining off-road capability with passenger comfort.",
+                            Name = "SUV"
+                        },
+                        new
+                        {
+                            BodyTypeId = 4,
+                            Description = "A two-door car with a fixed roof and sporty design.",
+                            Name = "Coupe"
+                        },
+                        new
+                        {
+                            BodyTypeId = 5,
+                            Description = "Compact car with a rear door that swings upward to provide access to cargo area.",
+                            Name = "Hatchback"
+                        },
+                        new
+                        {
+                            BodyTypeId = 6,
+                            Description = "Car with a roof structure that can be 'converted' to allow open-air or enclosed driving.",
+                            Name = "Convertible"
+                        },
+                        new
+                        {
+                            BodyTypeId = 7,
+                            Description = "A van designed for personal use, especially for families.",
+                            Name = "Minivan"
+                        },
+                        new
+                        {
+                            BodyTypeId = 8,
+                            Description = "A car with an extended rear cargo area, accessed via a rear door or hatch.",
+                            Name = "Station Wagon"
+                        },
+                        new
+                        {
+                            BodyTypeId = 9,
+                            Description = "A larger vehicle used for transporting goods or groups of people.",
+                            Name = "Van"
+                        },
+                        new
+                        {
+                            BodyTypeId = 10,
+                            Description = "Vehicle built on a car platform combining features of a hatchback and SUV.",
+                            Name = "Crossover"
+                        });
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Drivetrain", b =>
+                {
+                    b.Property<int>("DrivetrainId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrivetrainId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("DrivetrainId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("DrivetrainId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Drivetrains", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            DrivetrainId = 1,
+                            Description = "Power delivered to the front wheels, typical for fuel-efficient vehicles.",
+                            Name = "Front-Wheel Drive (FWD)"
+                        },
+                        new
+                        {
+                            DrivetrainId = 2,
+                            Description = "Power delivered to the rear wheels, preferred for performance and towing.",
+                            Name = "Rear-Wheel Drive (RWD)"
+                        },
+                        new
+                        {
+                            DrivetrainId = 3,
+                            Description = "Power automatically distributed to all wheels for better traction.",
+                            Name = "All-Wheel Drive (AWD)"
+                        },
+                        new
+                        {
+                            DrivetrainId = 4,
+                            Description = "Driver-selectable power distributed to all four wheels, for off-road driving.",
+                            Name = "Four-Wheel Drive (4WD)"
+                        });
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Engine", b =>
+                {
+                    b.Property<int>("EngineId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EngineId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("EngineId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("EngineId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Engines", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            EngineId = 1,
+                            Description = "Reliable 2.5 liter inline 4-cylinder engine, suitable for everyday driving.",
+                            Name = "2.5L Inline 4 Cylinder"
+                        },
+                        new
+                        {
+                            EngineId = 2,
+                            Description = "Powerful 3.5 liter V6 engine for enhanced performance.",
+                            Name = "3.5L V6"
+                        },
+                        new
+                        {
+                            EngineId = 3,
+                            Description = "Turbocharged 2.0 liter inline 4-cylinder engine with improved acceleration.",
+                            Name = "2.0L Turbo Inline 4"
+                        },
+                        new
+                        {
+                            EngineId = 4,
+                            Description = "Large 5.3 liter V8 engine, commonly used in trucks and SUVs for towing.",
+                            Name = "5.3L V8"
+                        },
+                        new
+                        {
+                            EngineId = 5,
+                            Description = "High-performance 5.0 liter V8 engine for sports vehicles.",
+                            Name = "5.0L V8"
+                        },
+                        new
+                        {
+                            EngineId = 6,
+                            Description = "Fuel-efficient 1.5 liter turbocharged inline 4-cylinder engine.",
+                            Name = "1.5L Turbo Inline 4"
+                        });
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.FuelType", b =>
+                {
+                    b.Property<int>("FuelTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuelTypeId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("FuelTypeId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("FuelTypeId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("FuelTypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            FuelTypeId = 1,
+                            Description = "Standard gasoline fuel used in most combustion engines.",
+                            Name = "Gasoline"
+                        },
+                        new
+                        {
+                            FuelTypeId = 2,
+                            Description = "Diesel fuel offering higher efficiency and torque for heavy-duty vehicles.",
+                            Name = "Diesel"
+                        },
+                        new
+                        {
+                            FuelTypeId = 3,
+                            Description = "Combination of gasoline engine and electric motor for improved fuel economy.",
+                            Name = "Hybrid"
+                        },
+                        new
+                        {
+                            FuelTypeId = 4,
+                            Description = "Fully electric powertrain using battery stored energy.",
+                            Name = "Electric"
+                        });
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Transmission", b =>
+                {
+                    b.Property<int>("TransmissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransmissionId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("TransmissionId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("TransmissionId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Transmissions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TransmissionId = 1,
+                            Description = "Requires driver to manually change gears using clutch and gear lever.",
+                            Name = "Manual"
+                        },
+                        new
+                        {
+                            TransmissionId = 2,
+                            Description = "Automatically changes gears without driver input for convenience.",
+                            Name = "Automatic"
+                        },
+                        new
+                        {
+                            TransmissionId = 3,
+                            Description = "Delivers smooth acceleration with a seamless range of gear ratios.",
+                            Name = "Continuously Variable Transmission (CVT)"
+                        },
+                        new
+                        {
+                            TransmissionId = 4,
+                            Description = "Offers quick, efficient gear changes with two separate clutches.",
+                            Name = "Dual-Clutch Automatic"
+                        },
+                        new
+                        {
+                            TransmissionId = 5,
+                            Description = "A manual transmission with automated clutch and gear shifts.",
+                            Name = "Automated Manual (AMT)"
+                        });
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>
                 {
                     b.Property<int>("VehicleId")
@@ -71,15 +390,40 @@ namespace ZK.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"));
 
-                    b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("AddedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BodyTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("DrivetrainId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EngineId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExteriorColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Features")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("FuelTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InteriorColor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdatedDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("MakeId")
                         .HasColumnType("int");
@@ -90,14 +434,34 @@ namespace ZK.Persistence.Migrations
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
+                    b.Property<int>("NumberOfDoors")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfOwners")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("SeatingCapacity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
+
+                    b.Property<int>("TransmissionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Trim")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("VIN")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -106,6 +470,14 @@ namespace ZK.Persistence.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("VehicleId"));
 
+                    b.HasIndex("BodyTypeId");
+
+                    b.HasIndex("DrivetrainId");
+
+                    b.HasIndex("EngineId");
+
+                    b.HasIndex("FuelTypeId");
+
                     b.HasIndex("MakeId");
 
                     b.HasIndex("ModelId");
@@ -113,73 +485,199 @@ namespace ZK.Persistence.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
+                    b.HasIndex("TransmissionId");
+
                     b.ToTable("Vehicles", (string)null);
 
                     b.HasData(
                         new
                         {
                             VehicleId = 1,
-                            Color = "White",
-                            Description = "2025 Toyota Camry in white color",
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 1,
+                            Description = "Reliable midsize sedan with advanced safety features",
+                            DrivetrainId = 1,
+                            EngineId = 1,
+                            ExteriorColor = "White",
+                            Features = "Backup Camera, Bluetooth, Lane Departure Warning",
+                            FuelTypeId = 1,
+                            InteriorColor = "Black",
                             IsSold = false,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MakeId = 1,
-                            Mileage = 0,
+                            Mileage = 15000,
                             ModelId = 1,
-                            Price = 25000.00m,
-                            Slug = "camry-2025-1",
-                            Year = 2025
+                            NumberOfDoors = 4,
+                            NumberOfOwners = 1,
+                            Price = 24999.99m,
+                            SeatingCapacity = 5,
+                            Slug = "toyota-camry-2022-se",
+                            TransmissionId = 2,
+                            Trim = "SE",
+                            VIN = "JT123456789012345",
+                            Year = 2022
                         },
                         new
                         {
                             VehicleId = 2,
-                            Color = "Blue",
-                            Description = "2024 Toyota Corolla in blue color",
-                            IsSold = false,
-                            MakeId = 1,
-                            Mileage = 0,
-                            ModelId = 2,
-                            Price = 20000.00m,
-                            Slug = "corolla-2024-2",
-                            Year = 2024
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 2,
+                            Description = "Powerful pickup truck with towing package",
+                            DrivetrainId = 2,
+                            EngineId = 2,
+                            ExteriorColor = "Blue",
+                            Features = "Tow Package, Bluetooth, Rear Parking Sensors",
+                            FuelTypeId = 2,
+                            InteriorColor = "Gray",
+                            IsSold = true,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MakeId = 2,
+                            Mileage = 40000,
+                            ModelId = 4,
+                            NumberOfDoors = 2,
+                            NumberOfOwners = 2,
+                            Price = 35999.99m,
+                            SeatingCapacity = 3,
+                            Slug = "ford-f150-2019-xl",
+                            TransmissionId = 2,
+                            Trim = "XL",
+                            VIN = "1FTFW1EF1KFB12345",
+                            Year = 2019
                         },
                         new
                         {
                             VehicleId = 3,
-                            Color = "Red",
-                            Description = "2023 Ford Focus in red",
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 1,
+                            Description = "Compact car with sporty handling",
+                            DrivetrainId = 1,
+                            EngineId = 3,
+                            ExteriorColor = "Red",
+                            Features = "Sunroof, Apple CarPlay, Heated Seats",
+                            FuelTypeId = 1,
+                            InteriorColor = "Beige",
                             IsSold = false,
-                            MakeId = 2,
-                            Mileage = 0,
-                            ModelId = 4,
-                            Price = 22000.00m,
-                            Slug = "focus-2023-3",
-                            Year = 2023
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MakeId = 3,
+                            Mileage = 12000,
+                            ModelId = 6,
+                            NumberOfDoors = 4,
+                            NumberOfOwners = 1,
+                            Price = 19999.99m,
+                            SeatingCapacity = 5,
+                            Slug = "honda-civic-2020-ex",
+                            TransmissionId = 3,
+                            Trim = "EX",
+                            VIN = "2HGFC2F59LH123456",
+                            Year = 2020
                         },
                         new
                         {
                             VehicleId = 4,
-                            Color = "Black",
-                            Description = "2024 Ford Mustang GT",
-                            IsSold = false,
-                            MakeId = 2,
-                            Mileage = 0,
-                            ModelId = 5,
-                            Price = 35000.00m,
-                            Slug = "mustang-2024-4",
-                            Year = 2024
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 2,
+                            Description = "Full-size pickup with off-road capability",
+                            DrivetrainId = 2,
+                            EngineId = 4,
+                            ExteriorColor = "Black",
+                            Features = "4WD, Navigation, Bluetooth",
+                            FuelTypeId = 1,
+                            InteriorColor = "Gray",
+                            IsSold = true,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MakeId = 4,
+                            Mileage = 55000,
+                            ModelId = 8,
+                            NumberOfDoors = 4,
+                            NumberOfOwners = 2,
+                            Price = 28999.99m,
+                            SeatingCapacity = 5,
+                            Slug = "chevrolet-silverado-2018-lt",
+                            TransmissionId = 2,
+                            Trim = "LT",
+                            VIN = "3GCUKREC7JG123456",
+                            Year = 2018
                         },
                         new
                         {
                             VehicleId = 5,
-                            Color = "Gray",
-                            Description = "2023 Honda Civic in gray color",
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 3,
+                            Description = "Compact SUV with fuel efficiency",
+                            DrivetrainId = 1,
+                            EngineId = 1,
+                            ExteriorColor = "Silver",
+                            Features = "Blind Spot Monitor, Apple CarPlay, Heated Seats",
+                            FuelTypeId = 1,
+                            InteriorColor = "Black",
                             IsSold = false,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MakeId = 1,
+                            Mileage = 8000,
+                            ModelId = 3,
+                            NumberOfDoors = 4,
+                            NumberOfOwners = 1,
+                            Price = 30500.00m,
+                            SeatingCapacity = 5,
+                            Slug = "toyota-rav4-2021-xle",
+                            TransmissionId = 2,
+                            Trim = "XLE",
+                            VIN = "JTMRWRFV0MD123456",
+                            Year = 2021
+                        },
+                        new
+                        {
+                            VehicleId = 6,
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 1,
+                            Description = "Performance coupe with V8 engine",
+                            DrivetrainId = 1,
+                            EngineId = 5,
+                            ExteriorColor = "Red",
+                            Features = "Leather Seats, Performance Package, Bluetooth",
+                            FuelTypeId = 1,
+                            InteriorColor = "Black",
+                            IsSold = true,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MakeId = 2,
+                            Mileage = 30000,
+                            ModelId = 5,
+                            NumberOfDoors = 2,
+                            NumberOfOwners = 1,
+                            Price = 27999.99m,
+                            SeatingCapacity = 4,
+                            Slug = "ford-mustang-2017-gt",
+                            TransmissionId = 1,
+                            Trim = "GT",
+                            VIN = "1FA6P8CF3H1234567",
+                            Year = 2017
+                        },
+                        new
+                        {
+                            VehicleId = 7,
+                            AddedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BodyTypeId = 1,
+                            Description = "Midsize sedan with sporty design",
+                            DrivetrainId = 1,
+                            EngineId = 3,
+                            ExteriorColor = "Gray",
+                            Features = "Apple CarPlay, Remote Start, Sunroof",
+                            FuelTypeId = 1,
+                            InteriorColor = "Black",
+                            IsSold = false,
+                            LastUpdatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MakeId = 3,
-                            Mileage = 0,
-                            ModelId = 6,
-                            Price = 21000.00m,
-                            Slug = "civic-2023-5",
-                            Year = 2023
+                            Mileage = 25000,
+                            ModelId = 7,
+                            NumberOfDoors = 4,
+                            NumberOfOwners = 1,
+                            Price = 21999.99m,
+                            SeatingCapacity = 5,
+                            Slug = "honda-accord-2019-sport",
+                            TransmissionId = 3,
+                            Trim = "Sport",
+                            VIN = "1HGCV1F39KA123456",
+                            Year = 2019
                         });
                 });
 
@@ -190,6 +688,9 @@ namespace ZK.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleImageId"));
+
+                    b.Property<DateTime>("AddedDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ContentType")
                         .IsRequired()
@@ -353,6 +854,30 @@ namespace ZK.Persistence.Migrations
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>
                 {
+                    b.HasOne("ZK.Domain.Entities.Vehicles.BodyType", "BodyType")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("BodyTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Drivetrain", "Drivetrain")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("DrivetrainId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Engine", "Engine")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("EngineId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.FuelType", "FuelType")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("FuelTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("ZK.Domain.Entities.Vehicles.VehicleMake", "Make")
                         .WithMany("Vehicles")
                         .HasForeignKey("MakeId")
@@ -365,15 +890,31 @@ namespace ZK.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Transmission", "Transmission")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("TransmissionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("BodyType");
+
+                    b.Navigation("Drivetrain");
+
+                    b.Navigation("Engine");
+
+                    b.Navigation("FuelType");
+
                     b.Navigation("Make");
 
                     b.Navigation("Model");
+
+                    b.Navigation("Transmission");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleImage", b =>
                 {
                     b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
-                        .WithMany("VehicleImage")
+                        .WithMany("VehicleImages")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -392,11 +933,36 @@ namespace ZK.Persistence.Migrations
                     b.Navigation("Make");
                 });
 
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.BodyType", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Drivetrain", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Engine", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.FuelType", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Transmission", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>
                 {
                     b.Navigation("SaleHistory");
 
-                    b.Navigation("VehicleImage");
+                    b.Navigation("VehicleImages");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleMake", b =>

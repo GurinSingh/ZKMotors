@@ -12,7 +12,7 @@ namespace ZK.Domain.Entities.Sales
     {
         public int SaleHistoryId { get; set; }
         public int VehicleId { get; set; }
-        public DateTime SaleDate { get; set; }
+        public DateTime SaleDateTime { get; set; }
         public decimal SalePrice { get; set; }
         public string CustomerName { get; set; }
         public string CustomerPhoneNo { get; set; }
