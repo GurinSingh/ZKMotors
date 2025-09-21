@@ -1,9 +1,35 @@
-.carousel-item img{
-    height: 100%;
+.vehicle-make-carousel{
+    margin: 100px auto;
+    border: 5px solid;
+    display: flex;
+    overflow-x: auto;
     width: 100%;
-    /* object-fit: cover; */
 }
-.carousel{
-    width: 100px;
-    overflow: hidden;
+.vehicle-make-carousel::-webkit-scrollbar{
+    display: none;
+}
+.item-group{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1em;
+    animation: spin 10s infinite linear;
+    padding-right: 1em;
+}
+.item-group-card {
+    flex: 0 0 5em;
+    height: auto;
+    padding: 1em;
+    border-radius: 3em;
+    text-align: center;
+    align-content: center;
+}
+.item-group-card img{
+    height: 300px;
+    width: 300px;
+}
+
+@keyframes spin{
+    from {translate: 0;}
+    to {translate: -100%;}
 }

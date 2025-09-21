@@ -38,11 +38,18 @@ namespace ZK.Presentation.Controllers
             return Ok(vehicles);
         }
 
-        [HttpGet("GetVehicleMake")]
+        [HttpGet("GetVehicleMakes")]
         public async Task<IActionResult> GetAllVehicleMakes(CancellationToken cancellationToken)
         {
-            var vehicleMake = await this._serviceManager.VehicleMakeService.GetAllAsync();
+            var vehicleMake = await this._serviceManager.VehicleMakeService.GetAllAsync(cancellationToken);
             return Ok(vehicleMake);
+        }
+
+        [HttpGet("GetBodyTypes")]
+        public async Task<IActionResult> GetAllBodyTypes(CancellationToken cancellationToken)
+        {
+            var bodyTypes = await this._serviceManager.BodyTypeService.GetAllAsync(cancellationToken);
+            return Ok(bodyTypes);
         }
     }
 }

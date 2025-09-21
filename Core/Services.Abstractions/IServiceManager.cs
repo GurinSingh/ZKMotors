@@ -11,5 +11,6 @@ namespace ZK.Services.Abstractions
     {
         IVehicleService VehicleService { get; }
         IVehicleMakeService VehicleMakeService { get; }
+        IBodyTypeService BodyTypeService { get; }
     }
 }

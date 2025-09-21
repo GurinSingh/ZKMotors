@@ -7,8 +7,34 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-3" *ngFor="let item of vehicleMakes">
-        <img class="img" [src]="'data: image/png; base64,'+item.imageBase64" alt="">
+    <div class="col-12">
+        <div class="vehicle-make-carousel">
+            <div class="item-group">
+                <div class="item-group-card" *ngFor="let item of vehicleMakes">
+                    <img [src]="'data: image/png; base64,'+item.imageBase64" alt="" />
+                </div>
+            </div>
+            <div aria-hidden class="item-group">
+                <div class="item-group-card" *ngFor="let item of vehicleMakes">
+                    <img [src]="'data: image/png; base64,'+item.imageBase64" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row vehicle-makes-images">
+    <div class="d-flex">
+        <div class="p-2" *ngFor="let item of vehicleMakes">
+            <img class="img-fluid" [src]="'data: image/png; base64,'+item.imageBase64" alt="" />
+        </div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="d-flex">
+        <div class="p-2" *ngFor="let item of bodyTypes">
+            {{item.description}}
+        </div>
     </div>
 </div>
 <a [routerLink]="['/vehicle/get']">click here</a>

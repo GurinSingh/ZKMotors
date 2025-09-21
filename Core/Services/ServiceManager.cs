@@ -14,14 +14,17 @@ namespace ZK.Services
     {
         private readonly Lazy<IVehicleService> _lazyVehicleService;
         private readonly Lazy<IVehicleMakeService> _lazyVehicleMakeService;
+        private readonly Lazy<IBodyTypeService> _lazyBodyTypeService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
             this._lazyVehicleService = new Lazy<IVehicleService>(() => new VehicleService(repositoryManager));
             this._lazyVehicleMakeService = new Lazy<IVehicleMakeService>(() => new VehicleMakeService(repositoryManager));
+            this._lazyBodyTypeService = new Lazy<IBodyTypeService>(() => new BodyTypeService(repositoryManager));
         }
 
         public IVehicleService VehicleService => _lazyVehicleService.Value;
         public IVehicleMakeService VehicleMakeService => _lazyVehicleMakeService.Value;
+        public IBodyTypeService BodyTypeService => _lazyBodyTypeService.Value;
     }
 }
