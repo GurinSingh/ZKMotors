@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using ZK.Contracts.DTOs.Vehicles;
 using ZK.Services.Abstractions;
 
@@ -36,17 +37,17 @@ namespace ZK.Presentation.Areas.Admin.Controllers
             return Ok();
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateAsync([FromForm] UpdateVehicleDTO value, IList<IFormFile> imageData, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateAsync([FromForm] UpdateVehicleDTO updateVehicleDTO, IList<IFormFile> imageData, CancellationToken cancellationToken)
         {
             //code to be removed
             for (int i = 0, l = imageData.Count; i < l; i++)
-                value.Images.Add(new UpdateVehicleImageDTO
+                updateVehicleDTO.Images.Add(new UpdateVehicleImageDTO
                 {
                     FileName = imageData[i].FileName,
                     ContentType = imageData[i].ContentType,
                     ImageData = imageData[i]
                 });
-            await this._serviceManager.VehicleService.UpdateAsync(value, cancellationToken);
+            await this._serviceManager.VehicleService.UpdateAsync(updateVehicleDTO, cancellationToken);
             return Ok();
         }
 
@@ -58,6 +59,24 @@ namespace ZK.Presentation.Areas.Admin.Controllers
                 return NotFound();
 
             await this._serviceManager.VehicleService.MarkAsSold(vehicleId, cancellationToken);
+            return Ok();
+        }
+        [HttpPost("AddVehicleMake")]
+        public async Task<IActionResult> AddVehicleMakeAsync([FromQuery] AddVehicleMakeDTO addVehicleMakeDTO, IFormFile imageData, CancellationToken cancellationToken)
+        {
+            //code to be removed
+            addVehicleMakeDTO.ImageData = imageData;
+
+            await this._serviceManager.VehicleMakeService.AddAsync(addVehicleMakeDTO, cancellationToken);
+            return Ok();
+        }
+        [HttpPut("UpdateVehicleMake")]
+        public async Task<IActionResult> UpdateVehicleMakeAsync(UpdateVehicleMakeDTO updateVehicleMakeDto, IFormFile imageData, CancellationToken cancellation)
+        {
+            //code to be removed
+            updateVehicleMakeDto.ImageData = imageData;
+
+            await this._serviceManager.VehicleMakeService.UpdateAsync(updateVehicleMakeDto, cancellation);
             return Ok();
         }
     }

@@ -37,5 +37,12 @@ namespace ZK.Presentation.Controllers
             var vehicles = await this._serviceManager.VehicleService.GetRelatedVehicleById(vehicleId, cancellationToken);
             return Ok(vehicles);
         }
+
+        [HttpGet("GetVehicleMake")]
+        public async Task<IActionResult> GetAllVehicleMakes(CancellationToken cancellationToken)
+        {
+            var vehicleMake = await this._serviceManager.VehicleMakeService.GetAllAsync();
+            return Ok(vehicleMake);
+        }
     }
 }

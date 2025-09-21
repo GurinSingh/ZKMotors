@@ -25,23 +25,23 @@ namespace ZK.Services.Vehicles
             var vehicle = await this._repositoryManager.VehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
             if (vehicle == null)
                 return null;
-            return this._mapToDTO(vehicle);
+            return this.MapToDTO(vehicle);
         }
         public async Task<ViewVehicleDTO> GetBySlugAsync(string slug, CancellationToken cancellationToken)
         {
             var vehicle = await this._repositoryManager.VehicleRepository.GetAsync(v=> v.Slug == slug, cancellationToken);
             if (vehicle == null)
                 return null;
-            return this._mapToDTO(vehicle);
+            return this.MapToDTO(vehicle);
         }
         public async Task<IEnumerable<ViewVehicleDTO>> GetAllAsync(CancellationToken cancellationToken)
         {
             var vehicles = await this._repositoryManager.VehicleRepository.GetAllAsync(cancellationToken);
-            return vehicles.Select(v => this._mapToDTO(v));
+            return vehicles.Select(v => this.MapToDTO(v));
         }
         public async Task AddAsync(AddVehicleDTO addVehicleDTO, CancellationToken cancellationToken)
         {
-            var vehicle = this._mapToEntity(addVehicleDTO);
+            var vehicle = this.MapToEntity(addVehicleDTO);
 
             vehicle.Make = await this._repositoryManager.VehicleMakeRepository.GetByIdAsync(vehicle.MakeId, cancellationToken);
             if (vehicle.Make == null)
@@ -105,7 +105,7 @@ namespace ZK.Services.Vehicles
             if (vehicle == null)
                 throw new Exception("Vehicle not found");
             var relatedVehicles = await this._repositoryManager.VehicleRepository.GetManyAsync(v=> v.BodyTypeId == vehicle.BodyTypeId && v.VehicleId != vehicle.VehicleId, cancellationToken);
-            return relatedVehicles.Take(5).Select(v => this._mapToDTO(v));
+            return relatedVehicles.Take(5).Select(v => this.MapToDTO(v));
         }
         public async Task UpdateAsync(UpdateVehicleDTO updateVehicleDTO, CancellationToken cancellationToken)
         {
@@ -142,20 +142,6 @@ namespace ZK.Services.Vehicles
             if (vehicle.Model == null)
                 throw new Exception("Invalid ModelId");
 
-            Func<IFormFile, byte[]> _convertToByteArray = (imageFile) =>
-            {
-                byte[] imageBytes = [];
-                if (imageFile.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        imageFile.CopyTo(ms);
-                        imageBytes = ms.ToArray();
-                    }
-                }
-                return imageBytes;
-            };
-
             //delete existing images
             await this._repositoryManager.VehicleImageRepository.DeleteAllbyVehicleIdAsync(vehicle.VehicleId, cancellationToken);
             
@@ -164,7 +150,7 @@ namespace ZK.Services.Vehicles
                 vehicle.VehicleImages = updateVehicleDTO.Images.Select(i => new VehicleImage
                 {
                     VehicleId = i.VehicleId,
-                    ImageData = _convertToByteArray(i.ImageData),
+                    ImageData = ImageHelper.ConvertToByteArray(i.ImageData),
                     ContentType = i.ContentType,
                     FileName = i.FileName,
                     AddedDateTime = DateTime.UtcNow
@@ -175,7 +161,7 @@ namespace ZK.Services.Vehicles
             await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }
         #region private methods
-        private ViewVehicleDTO _mapToDTO(Vehicle vehicle)
+        private ViewVehicleDTO MapToDTO(Vehicle vehicle)
         {
             return new ViewVehicleDTO
             {
@@ -213,24 +199,8 @@ namespace ZK.Services.Vehicles
                 }).OrderByDescending(v => v.AddedDateTime).ToList()
             };
         }
-        private Vehicle _mapToEntity(AddVehicleDTO addVehicleDTO)
+        private Vehicle MapToEntity(AddVehicleDTO addVehicleDTO)
         {
-            Func<IFormFile, byte[]> _convertToByteArray = (imageFile) =>
-            {
-                byte[] imageBytes = [];
-
-                if (imageFile.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        imageFile.CopyTo(ms);
-
-                        imageBytes = ms.ToArray();
-                    }
-                }
-
-                return imageBytes;
-            };
             return new Vehicle
             {
                 MakeId = addVehicleDTO.MakeId,
@@ -259,7 +229,7 @@ namespace ZK.Services.Vehicles
                 VehicleImages = addVehicleDTO.Images.Select(i => new VehicleImage
                 {
                     VehicleId = i.VehicleId,
-                    ImageData = _convertToByteArray(i.ImageData),
+                    ImageData = ImageHelper.ConvertToByteArray(i.ImageData),
                     ContentType = i.ContentType,
                     FileName = i.FileName,
                     AddedDateTime = DateTime.UtcNow

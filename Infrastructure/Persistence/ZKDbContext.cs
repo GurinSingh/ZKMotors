@@ -25,10 +25,10 @@ namespace ZK.Persistence
 
             // Seed VehicleMakes
             modelBuilder.Entity<VehicleMake>().HasData(
-                new VehicleMake { VehicleMakeId = 1, Name = "Toyota" },
-                new VehicleMake { VehicleMakeId = 2, Name = "Ford" },
-                new VehicleMake { VehicleMakeId = 3, Name = "Honda" },
-                new VehicleMake { VehicleMakeId = 4, Name = "Chevrolet" }
+                new VehicleMake { VehicleMakeId = 1, Name = "Toyota", ImageData = [] },
+                new VehicleMake { VehicleMakeId = 2, Name = "Ford", ImageData = [] },
+                new VehicleMake { VehicleMakeId = 3, Name = "Honda", ImageData = [] },
+                new VehicleMake { VehicleMakeId = 4, Name = "Chevrolet", ImageData = [] }
             );
 
             // Seed VehicleModels
@@ -95,197 +95,197 @@ namespace ZK.Persistence
 
 
             // Seed Vehicles
-            modelBuilder.Entity<Vehicle>().HasData(
-                new Vehicle
-                {
-                    VehicleId = 1,
-                    Slug = "toyota-camry-2022-se",
-                    MakeId = 1,
-                    ModelId = 1,
-                    Year = 2022,
-                    IsSold = false,
-                    ExteriorColor = "White",
-                    InteriorColor = "Black",
-                    Description = "Reliable midsize sedan with advanced safety features",
-                    Price = 24999.99m,
-                    Mileage = 15000,
-                    VIN = "JT123456789012345",
-                    Trim = "SE",
-                    BodyTypeId = 1,        // e.g. Sedan
-                    EngineId = 1,          // e.g. 2.5L I4
-                    TransmissionId = 2,    // e.g. Automatic
-                    FuelTypeId = 1,        // e.g. Gasoline
-                    DrivetrainId = 1,      // e.g. FWD
-                    NumberOfOwners = 1,
-                    NumberOfDoors = 4,
-                    SeatingCapacity = 5,
-                    Features = "Backup Camera, Bluetooth, Lane Departure Warning",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 2,
-                    Slug = "ford-f150-2019-xl",
-                    MakeId = 2,
-                    ModelId = 4,
-                    Year = 2019,
-                    IsSold = true,
-                    ExteriorColor = "Blue",
-                    InteriorColor = "Gray",
-                    Description = "Powerful pickup truck with towing package",
-                    Price = 35999.99m,
-                    Mileage = 40000,
-                    VIN = "1FTFW1EF1KFB12345",
-                    Trim = "XL",
-                    BodyTypeId = 2,        // e.g. Pickup
-                    EngineId = 2,          // e.g. 3.5L V6
-                    TransmissionId = 2,
-                    FuelTypeId = 2,        // e.g. Diesel
-                    DrivetrainId = 2,      // e.g. 4WD
-                    NumberOfOwners = 2,
-                    NumberOfDoors = 2,
-                    SeatingCapacity = 3,
-                    Features = "Tow Package, Bluetooth, Rear Parking Sensors",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 3,
-                    Slug = "honda-civic-2020-ex",
-                    MakeId = 3,
-                    ModelId = 6,
-                    Year = 2020,
-                    IsSold = false,
-                    ExteriorColor = "Red",
-                    InteriorColor = "Beige",
-                    Description = "Compact car with sporty handling",
-                    Price = 19999.99m,
-                    Mileage = 12000,
-                    VIN = "2HGFC2F59LH123456",
-                    Trim = "EX",
-                    BodyTypeId = 1,
-                    EngineId = 3,          // e.g. 2.0L I4 Turbo
-                    TransmissionId = 3,    // e.g. CVT
-                    FuelTypeId = 1,
-                    DrivetrainId = 1,
-                    NumberOfOwners = 1,
-                    NumberOfDoors = 4,
-                    SeatingCapacity = 5,
-                    Features = "Sunroof, Apple CarPlay, Heated Seats",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 4,
-                    Slug = "chevrolet-silverado-2018-lt",
-                    MakeId = 4,
-                    ModelId = 8,
-                    Year = 2018,
-                    IsSold = true,
-                    ExteriorColor = "Black",
-                    InteriorColor = "Gray",
-                    Description = "Full-size pickup with off-road capability",
-                    Price = 28999.99m,
-                    Mileage = 55000,
-                    VIN = "3GCUKREC7JG123456",
-                    Trim = "LT",
-                    BodyTypeId = 2,
-                    EngineId = 4,          // e.g. 5.3L V8
-                    TransmissionId = 2,
-                    FuelTypeId = 1,
-                    DrivetrainId = 2,
-                    NumberOfOwners = 2,
-                    NumberOfDoors = 4,
-                    SeatingCapacity = 5,
-                    Features = "4WD, Navigation, Bluetooth",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 5,
-                    Slug = "toyota-rav4-2021-xle",
-                    MakeId = 1,
-                    ModelId = 3,
-                    Year = 2021,
-                    IsSold = false,
-                    ExteriorColor = "Silver",
-                    InteriorColor = "Black",
-                    Description = "Compact SUV with fuel efficiency",
-                    Price = 30500.00m,
-                    Mileage = 8000,
-                    VIN = "JTMRWRFV0MD123456",
-                    Trim = "XLE",
-                    BodyTypeId = 3,        // SUV
-                    EngineId = 1,
-                    TransmissionId = 2,
-                    FuelTypeId = 1,
-                    DrivetrainId = 1,
-                    NumberOfOwners = 1,
-                    NumberOfDoors = 4,
-                    SeatingCapacity = 5,
-                    Features = "Blind Spot Monitor, Apple CarPlay, Heated Seats",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 6,
-                    Slug = "ford-mustang-2017-gt",
-                    MakeId = 2,
-                    ModelId = 5,
-                    Year = 2017,
-                    IsSold = true,
-                    ExteriorColor = "Red",
-                    InteriorColor = "Black",
-                    Description = "Performance coupe with V8 engine",
-                    Price = 27999.99m,
-                    Mileage = 30000,
-                    VIN = "1FA6P8CF3H1234567",
-                    Trim = "GT",
-                    BodyTypeId = 1,
-                    EngineId = 5,          // e.g. 5.0L V8
-                    TransmissionId = 1,    // Manual
-                    FuelTypeId = 1,
-                    DrivetrainId = 1,
-                    NumberOfOwners = 1,
-                    NumberOfDoors = 2,
-                    SeatingCapacity = 4,
-                    Features = "Leather Seats, Performance Package, Bluetooth",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                },
-                new Vehicle
-                {
-                    VehicleId = 7,
-                    Slug = "honda-accord-2019-sport",
-                    MakeId = 3,
-                    ModelId = 7,
-                    Year = 2019,
-                    IsSold = false,
-                    ExteriorColor = "Gray",
-                    InteriorColor = "Black",
-                    Description = "Midsize sedan with sporty design",
-                    Price = 21999.99m,
-                    Mileage = 25000,
-                    VIN = "1HGCV1F39KA123456",
-                    Trim = "Sport",
-                    BodyTypeId = 1,
-                    EngineId = 3,
-                    TransmissionId = 3,
-                    FuelTypeId = 1,
-                    DrivetrainId = 1,
-                    NumberOfOwners = 1,
-                    NumberOfDoors = 4,
-                    SeatingCapacity = 5,
-                    Features = "Apple CarPlay, Remote Start, Sunroof",
-                    AddedDateTime = DateTime.UtcNow,
-                    LastUpdatedDateTime = DateTime.UtcNow
-                }
-            );
+            //modelBuilder.Entity<Vehicle>().HasData(
+            //    new Vehicle
+            //    {
+            //        VehicleId = 1,
+            //        Slug = "toyota-camry-2022-se",
+            //        MakeId = 1,
+            //        ModelId = 1,
+            //        Year = 2022,
+            //        IsSold = false,
+            //        ExteriorColor = "White",
+            //        InteriorColor = "Black",
+            //        Description = "Reliable midsize sedan with advanced safety features",
+            //        Price = 24999.99m,
+            //        Mileage = 15000,
+            //        VIN = "JT123456789012345",
+            //        Trim = "SE",
+            //        BodyTypeId = 1,        // e.g. Sedan
+            //        EngineId = 1,          // e.g. 2.5L I4
+            //        TransmissionId = 2,    // e.g. Automatic
+            //        FuelTypeId = 1,        // e.g. Gasoline
+            //        DrivetrainId = 1,      // e.g. FWD
+            //        NumberOfOwners = 1,
+            //        NumberOfDoors = 4,
+            //        SeatingCapacity = 5,
+            //        Features = "Backup Camera, Bluetooth, Lane Departure Warning",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 2,
+            //        Slug = "ford-f150-2019-xl",
+            //        MakeId = 2,
+            //        ModelId = 4,
+            //        Year = 2019,
+            //        IsSold = true,
+            //        ExteriorColor = "Blue",
+            //        InteriorColor = "Gray",
+            //        Description = "Powerful pickup truck with towing package",
+            //        Price = 35999.99m,
+            //        Mileage = 40000,
+            //        VIN = "1FTFW1EF1KFB12345",
+            //        Trim = "XL",
+            //        BodyTypeId = 2,        // e.g. Pickup
+            //        EngineId = 2,          // e.g. 3.5L V6
+            //        TransmissionId = 2,
+            //        FuelTypeId = 2,        // e.g. Diesel
+            //        DrivetrainId = 2,      // e.g. 4WD
+            //        NumberOfOwners = 2,
+            //        NumberOfDoors = 2,
+            //        SeatingCapacity = 3,
+            //        Features = "Tow Package, Bluetooth, Rear Parking Sensors",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 3,
+            //        Slug = "honda-civic-2020-ex",
+            //        MakeId = 3,
+            //        ModelId = 6,
+            //        Year = 2020,
+            //        IsSold = false,
+            //        ExteriorColor = "Red",
+            //        InteriorColor = "Beige",
+            //        Description = "Compact car with sporty handling",
+            //        Price = 19999.99m,
+            //        Mileage = 12000,
+            //        VIN = "2HGFC2F59LH123456",
+            //        Trim = "EX",
+            //        BodyTypeId = 1,
+            //        EngineId = 3,          // e.g. 2.0L I4 Turbo
+            //        TransmissionId = 3,    // e.g. CVT
+            //        FuelTypeId = 1,
+            //        DrivetrainId = 1,
+            //        NumberOfOwners = 1,
+            //        NumberOfDoors = 4,
+            //        SeatingCapacity = 5,
+            //        Features = "Sunroof, Apple CarPlay, Heated Seats",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 4,
+            //        Slug = "chevrolet-silverado-2018-lt",
+            //        MakeId = 4,
+            //        ModelId = 8,
+            //        Year = 2018,
+            //        IsSold = true,
+            //        ExteriorColor = "Black",
+            //        InteriorColor = "Gray",
+            //        Description = "Full-size pickup with off-road capability",
+            //        Price = 28999.99m,
+            //        Mileage = 55000,
+            //        VIN = "3GCUKREC7JG123456",
+            //        Trim = "LT",
+            //        BodyTypeId = 2,
+            //        EngineId = 4,          // e.g. 5.3L V8
+            //        TransmissionId = 2,
+            //        FuelTypeId = 1,
+            //        DrivetrainId = 2,
+            //        NumberOfOwners = 2,
+            //        NumberOfDoors = 4,
+            //        SeatingCapacity = 5,
+            //        Features = "4WD, Navigation, Bluetooth",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 5,
+            //        Slug = "toyota-rav4-2021-xle",
+            //        MakeId = 1,
+            //        ModelId = 3,
+            //        Year = 2021,
+            //        IsSold = false,
+            //        ExteriorColor = "Silver",
+            //        InteriorColor = "Black",
+            //        Description = "Compact SUV with fuel efficiency",
+            //        Price = 30500.00m,
+            //        Mileage = 8000,
+            //        VIN = "JTMRWRFV0MD123456",
+            //        Trim = "XLE",
+            //        BodyTypeId = 3,        // SUV
+            //        EngineId = 1,
+            //        TransmissionId = 2,
+            //        FuelTypeId = 1,
+            //        DrivetrainId = 1,
+            //        NumberOfOwners = 1,
+            //        NumberOfDoors = 4,
+            //        SeatingCapacity = 5,
+            //        Features = "Blind Spot Monitor, Apple CarPlay, Heated Seats",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 6,
+            //        Slug = "ford-mustang-2017-gt",
+            //        MakeId = 2,
+            //        ModelId = 5,
+            //        Year = 2017,
+            //        IsSold = true,
+            //        ExteriorColor = "Red",
+            //        InteriorColor = "Black",
+            //        Description = "Performance coupe with V8 engine",
+            //        Price = 27999.99m,
+            //        Mileage = 30000,
+            //        VIN = "1FA6P8CF3H1234567",
+            //        Trim = "GT",
+            //        BodyTypeId = 1,
+            //        EngineId = 5,          // e.g. 5.0L V8
+            //        TransmissionId = 1,    // Manual
+            //        FuelTypeId = 1,
+            //        DrivetrainId = 1,
+            //        NumberOfOwners = 1,
+            //        NumberOfDoors = 2,
+            //        SeatingCapacity = 4,
+            //        Features = "Leather Seats, Performance Package, Bluetooth",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    },
+            //    new Vehicle
+            //    {
+            //        VehicleId = 7,
+            //        Slug = "honda-accord-2019-sport",
+            //        MakeId = 3,
+            //        ModelId = 7,
+            //        Year = 2019,
+            //        IsSold = false,
+            //        ExteriorColor = "Gray",
+            //        InteriorColor = "Black",
+            //        Description = "Midsize sedan with sporty design",
+            //        Price = 21999.99m,
+            //        Mileage = 25000,
+            //        VIN = "1HGCV1F39KA123456",
+            //        Trim = "Sport",
+            //        BodyTypeId = 1,
+            //        EngineId = 3,
+            //        TransmissionId = 3,
+            //        FuelTypeId = 1,
+            //        DrivetrainId = 1,
+            //        NumberOfOwners = 1,
+            //        NumberOfDoors = 4,
+            //        SeatingCapacity = 5,
+            //        Features = "Apple CarPlay, Remote Start, Sunroof",
+            //        AddedDateTime = DateTime.UtcNow,
+            //        LastUpdatedDateTime = DateTime.UtcNow
+            //    }
+            //);
         }
     }
 }

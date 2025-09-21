@@ -10,5 +10,6 @@ namespace ZK.Services.Abstractions
     public interface IServiceManager
     {
         IVehicleService VehicleService { get; }
+        IVehicleMakeService VehicleMakeService { get; }
     }
 }

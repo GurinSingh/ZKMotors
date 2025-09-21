@@ -15,6 +15,7 @@ namespace ZK.Domain.Entities.Vehicles
         }
         public int VehicleMakeId { get; set; }
         public string Name { get; set; }
+        public byte[] ImageData { get; set; }
 
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         public virtual ICollection<VehicleModel> VehicleModels { get; set; }

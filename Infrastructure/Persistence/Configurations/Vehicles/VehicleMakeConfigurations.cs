@@ -17,6 +17,7 @@ namespace ZK.Persistence.Configurations.Vehicles
 
             builder.HasKey(vm => vm.VehicleMakeId).IsClustered(true);
             builder.Property(vm => vm.Name).IsRequired().HasMaxLength(100);
+            builder.Property(vm => vm.ImageData).IsRequired();
 
             builder.Property(v => v.VehicleMakeId)
                 .UseIdentityColumn(1, 1);

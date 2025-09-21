@@ -12,5 +12,6 @@ namespace ZK.Domain.Respositories.Vehicles
         Task<VehicleMake> GetByIdAsync(int vehicleMakeId, CancellationToken cancellationToken = default);
         Task<IEnumerable<VehicleMake>> GetAllAsync(CancellationToken cancellationToken = default);
         Task AddAsync(VehicleMake vehicleMake, CancellationToken cancellationToken = default);
+        Task UpdateAsync(VehicleMake vehicleMake, CancellationToken cancellationToken = default);
     }
 }

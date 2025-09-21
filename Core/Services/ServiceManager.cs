@@ -13,12 +13,15 @@ namespace ZK.Services
     public class ServiceManager : IServiceManager
     {
         private readonly Lazy<IVehicleService> _lazyVehicleService;
+        private readonly Lazy<IVehicleMakeService> _lazyVehicleMakeService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
             this._lazyVehicleService = new Lazy<IVehicleService>(() => new VehicleService(repositoryManager));
+            this._lazyVehicleMakeService = new Lazy<IVehicleMakeService>(() => new VehicleMakeService(repositoryManager));
         }
 
         public IVehicleService VehicleService => _lazyVehicleService.Value;
+        public IVehicleMakeService VehicleMakeService => _lazyVehicleMakeService.Value;
     }
 }

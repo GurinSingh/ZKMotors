@@ -4,4 +4,5 @@ export class ApiEndpoints {
     static get getAllVehicles(){ return this._base + 'vehicle/get'}
     static get getVehicleBySlug(){ return this._base +'vehicle/get'}
     static get getRelated(){ return this._base +'vehicle/getrelated'}
+    static get getVehicleMakes() { return this._base + 'vehicle/getVehicleMake'}
 }
