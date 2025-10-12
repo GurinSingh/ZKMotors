@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using ZK.Contracts.DTOs.Vehicles;
@@ -7,6 +8,7 @@ using ZK.Services.Abstractions;
 namespace ZK.Presentation.Areas.Admin.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("admin/[controller]")]
     public class VehicleController : ControllerBase
     {

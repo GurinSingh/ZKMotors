@@ -1,11 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Entities.Users;
 using ZK.Domain.Respositories;
+using ZK.Domain.Respositories.Account;
 using ZK.Domain.Respositories.Sales;
 using ZK.Domain.Respositories.Vehicles;
+using ZK.Persistence.Identity;
+using ZK.Persistence.Repositories.Account;
 using ZK.Persistence.Repositories.Sales;
 using ZK.Persistence.Repositories.Vehicles;
 
@@ -18,7 +23,11 @@ namespace ZK.Persistence.Repositories
         private readonly Lazy<IVehicleModelRepository> _lazyVehicleModelRepository;
         private readonly Lazy<ISaleHistoryRepository> _lazySaleHistoryRepository;
         private readonly Lazy<IBodyTypeRepository> _lazyBodyTypeRepository;
-        private readonly Lazy<VehicleImageRepository> _lazyVehicleImageRepository;
+        private readonly Lazy<IVehicleImageRepository> _lazyVehicleImageRepository;
+        private readonly Lazy<IUserRepository> _lazyUserRepository;
+        private readonly Lazy<IRoleRepository> _lazyRoleRepository;
+        private readonly Lazy<IRoleClaimRepository> _lazyRoleClaimRepository;
+        private readonly Lazy<IUserRoleRepository> _lazyUserRoleRepository;
 
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
@@ -29,7 +38,11 @@ namespace ZK.Persistence.Repositories
             this._lazyVehicleModelRepository = new Lazy<IVehicleModelRepository>(() => new VehicleModelRepository(context));
             this._lazySaleHistoryRepository = new Lazy<ISaleHistoryRepository>(() => new SaleHistoryRepository(context));
             this._lazyBodyTypeRepository = new Lazy<IBodyTypeRepository>(() => new BodyTypeRepository(context));
-            this._lazyVehicleImageRepository = new Lazy<VehicleImageRepository>(() => new VehicleImageRepository(context));
+            this._lazyVehicleImageRepository = new Lazy<IVehicleImageRepository>(() => new VehicleImageRepository(context));
+            this._lazyUserRepository = new Lazy<IUserRepository>(() => new UserRepository(context));
+            this._lazyRoleRepository = new Lazy<IRoleRepository>(() => new RoleRepository(context));
+            this._lazyRoleClaimRepository = new Lazy<IRoleClaimRepository>(() => new RoleClaimRepository(context));
+            this._lazyUserRoleRepository = new Lazy<IUserRoleRepository>(() => new UserRoleRepository(context));
 
             this._lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(context));
         }
@@ -40,6 +53,10 @@ namespace ZK.Persistence.Repositories
         public ISaleHistoryRepository SaleHistoryRepository => this._lazySaleHistoryRepository.Value;
         public IBodyTypeRepository BodyTypeRepository => this._lazyBodyTypeRepository.Value;
         public IVehicleImageRepository VehicleImageRepository => this._lazyVehicleImageRepository.Value;
+        public IUserRepository UserRepository => this._lazyUserRepository.Value;
+        public IRoleRepository RoleRepository => this._lazyRoleRepository.Value;
+        public IRoleClaimRepository RoleClaimRepository => this._lazyRoleClaimRepository.Value;
+        public IUserRoleRepository UserRoleRepository => this._lazyUserRoleRepository.Value;
 
         public IUnitOfWork UnitOfWork => this._lazyUnitOfWork.Value;
     }

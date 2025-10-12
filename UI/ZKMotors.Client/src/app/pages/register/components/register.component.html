@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-4 border shadow p-5">
+        <form [formGroup]="register" (ngSubmit)="onSubmit()">
+            <div class="mb-3 border-bottom">
+              <h4>Register</h4>
+            </div>
+            <div class="mb-3">
+              <label for="FirstName" class="form-label">First Name</label>
+              <input type="text" formControlName="firstName" class="form-control" aria-describedby="FirstName" />
+            </div>
+            <div class="mb-3">
+              <label for="LastName" class="form-label">Last Name</label>
+              <input type="text" formControlName="lastName" class="form-control" aria-describedby="FirstName" />
+            </div>
+            <div class="mb-3">
+              <label for="UserName" class="form-label">User Name</label>
+              <input type="text" formControlName="userName" class="form-control" aria-describedby="UserName" />
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label">Email</label>
+              <input type="email" formControlName="email" class="form-control" aria-describedby="email" />
+            </div>
+            <div class="mb-3">
+              <label for="Password" class="form-label">Password</label>
+              <input type="password" formControlName="password" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" />
+            </div>
+            <input type="hidden" formControlName="roleIds" class="form-control" />
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

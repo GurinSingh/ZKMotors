@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Domain.Respositories.Account;
 using ZK.Domain.Respositories.Sales;
 using ZK.Domain.Respositories.Vehicles;
 
@@ -16,6 +17,10 @@ namespace ZK.Domain.Respositories
         ISaleHistoryRepository SaleHistoryRepository { get; }
         IBodyTypeRepository BodyTypeRepository { get; }
         IVehicleImageRepository VehicleImageRepository { get; }
+        IUserRepository UserRepository { get; }
+        IRoleRepository RoleRepository { get; }
+        IRoleClaimRepository RoleClaimRepository { get; }
+        IUserRoleRepository UserRoleRepository { get; }
 
         IUnitOfWork UnitOfWork { get; }
     }

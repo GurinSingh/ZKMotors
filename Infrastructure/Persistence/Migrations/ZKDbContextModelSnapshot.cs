@@ -22,6 +22,135 @@ namespace ZK.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ZK.Domain.Entities.Users.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("RoleId"));
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.RoleClaim", b =>
+                {
+                    b.Property<int>("RoleClaimId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleClaimId"));
+
+                    b.Property<string>("ClaimType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ClaimValue")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleClaimId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("RoleClaimId"), false);
+
+                    b.HasIndex("ClaimValue")
+                        .IsUnique();
+
+                    b.HasIndex("RoleId");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("RoleId"));
+
+                    b.ToTable("RoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("UserId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId"), false);
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("UserName"));
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
                 {
                     b.Property<int>("SaleHistoryId")
@@ -658,6 +787,36 @@ namespace ZK.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ZK.Domain.Entities.Users.RoleClaim", b =>
+                {
+                    b.HasOne("ZK.Domain.Entities.Users.Role", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.UserRole", b =>
+                {
+                    b.HasOne("ZK.Domain.Entities.Users.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Users.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
                 {
                     b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
@@ -748,6 +907,18 @@ namespace ZK.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Make");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.Role", b =>
+                {
+                    b.Navigation("RoleClaims");
+
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Users.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.BodyType", b =>

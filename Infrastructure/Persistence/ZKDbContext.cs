@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ZK.Domain.Entities.Users;
 using ZK.Domain.Entities.Sales;
 using ZK.Domain.Entities.Vehicles;
 
@@ -18,6 +19,10 @@ namespace ZK.Persistence
         public DbSet<BodyType> BodyTypes { get; set; }
         public DbSet<Drivetrain> Drivetrains { get; set; }
         public DbSet<VehicleImage> VehicleImages { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RoleClaim> RoleClaims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
