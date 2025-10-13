@@ -8,9 +8,8 @@ const target = 'https://localhost:7096';
 const PROXY_CONFIG = [
   {
     context: [
-      "/weatherforecast",
       "/api",
-      "/admin"
+      "/api/admin"
     ],
     target,
     secure: false

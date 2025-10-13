@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IRegisterRequest, ILoginRequest, IUser } from 'app/core/models/iUserService';
+import { IRegisterRequest, ILoginRequest, IUser } from 'app/core/models/user-service.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 

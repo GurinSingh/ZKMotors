@@ -1,0 +1,122 @@
+<h5>Add new Vehicle</h5>
+<form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit()">
+    <div class="card my-3">
+        <div class="card-header">Basic Identifications</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <div class="row">
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="vehicleMake">Make</label>
+                            <select formControlName="makeId" class="form-control form-select">
+                                <option value="">--Select--</option>
+                                @for (item of vehicleMakes; track item.vehicleMakeId) {
+                                <option [value]="item.vehicleMakeId">{{item.name}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="vehicleModel">Model</label>
+                            <select formControlName="modelId" class="form-control form-select">
+                                <option value="">--Select--</option>
+                                @for (item of vehicleModels; track item.vehicleModelId) {
+                                <option [value]="item.vehicleModelId">{{item.name}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="year">Year</label>
+                            <input type="text" formControlName="year" class="form-control" />
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="vin">VIN</label>
+                            <input type="text" formControlName="vin" class="form-control" />
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="trim">Trim</label>
+                            <input type="text" formControlName="trim" class="form-control" />
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="vehicleModel">Body Type</label>
+                            <select formControlName="bodyTypeId" class="form-control form-select">
+                                <option value="">--Select--</option>
+                                @for (item of bodyTypes; track item.bodyTypeId) {
+                                <option [value]="item.bodyTypeId">{{item.name}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="exteriorColor">Exterior Color</label>
+                            <input type="text" formControlName="exteriorColor" class="form-control" />
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="interiorColor">Interior Color</label>
+                            <input type="text" formControlName="interiorColor" class="form-control" />
+                        </div>
+                        <div [class]="formWrapperCss">
+                            <label class="form-label" for="features">Features</label>
+                            <input type="text" formControlName="features" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 my-3 border rounded">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label" for="images">Images</label>
+                            <input type="file" formControlName="images" class="form-control" accept="image/*"
+                                multiple (change)="onFileSelected($event)" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        @for(item of selectedImages; track $index){
+                        <div class="col-4 my-3">
+                            <div class="card">
+                                <img class="card-img-top" [src]="item" [alt]="'image'+$index">
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card my-3">
+        <div class="card-header">Technical Specifications</div>
+        <div class="card-body">
+            <div class="row">
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="year">Engine</label>
+                    <input type="text" formControlName="engine" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="year">Transmission</label>
+                    <input type="text" formControlName="transmission" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="year">Mileage (km)</label>
+                    <input type="text" formControlName="mileage" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="fuelType">Fuel Type</label>
+                    <input type="text" formControlName="fuelType" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="numberOfDoors">Doors</label>
+                    <input type="text" formControlName="numberOfDoors" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="seatingCapacity">Seating Capacity</label>
+                    <input type="text" formControlName="seatingCapacity" class="form-control" />
+                </div>
+                <div [class]="formWrapperCss">
+                    <label class="form-label" for="numberOfOwners">Owners</label>
+                    <input type="text" formControlName="numberOfOwners" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 my-3">
+        <button class="btn btn-primary mx-3" type="submit">Add</button>
+        <button class="btn btn-danger mx-3" type="button">Cancel</button>
+    </div>
+</form>

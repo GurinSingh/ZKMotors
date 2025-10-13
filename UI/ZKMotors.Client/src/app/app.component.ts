@@ -1,40 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ApiEndpoints } from 'environments/api-endpoints';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: false,
-  styleUrl: './app.component.css'
+  standalone: true,
+  styleUrl: './app.component.css',
+  imports: [
+    RouterOutlet
+]
 })
-export class AppComponent implements OnInit {
-  link: string = ApiEndpoints.getVehicleBySlug+ '/toyota-camry-2022-se';
-  public forecasts: WeatherForecast[] = [];
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    //this.getForecasts();
-  }
-
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
+export class AppComponent {
+  constructor() {}
 
   title = 'zkmotors.client';
 }
