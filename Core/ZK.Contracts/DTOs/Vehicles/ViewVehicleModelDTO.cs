@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ZK.Contracts.DTOs.Vehicles
 {
-    public class ViewBodyTypeDTO
+    public class ViewVehicleModelDTO
     {
-        public int BodyTypeId { get; set; }
+        public int VehicleModelId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public int MakeId { get; set; }
     }
 }

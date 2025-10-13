@@ -35,7 +35,7 @@ namespace ZK.Services.Vehicles
         {
             return new ViewBodyTypeDTO
             {
-                Id = bodyType.BodyTypeId,
+                BodyTypeId = bodyType.BodyTypeId,
                 Name = bodyType.Name,
                 Description = bodyType.Description
             };

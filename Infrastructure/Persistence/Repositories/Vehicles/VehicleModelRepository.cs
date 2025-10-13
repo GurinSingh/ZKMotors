@@ -31,5 +31,24 @@ namespace ZK.Persistence.Repositories.Vehicles
         {
             return await this._context.VehicleModels.FindAsync(vehicleModelId, cancellationToken).AsTask();
         }
+
+        public async Task<IEnumerable<VehicleModel>> GetByMakeIdAsync(int vehicleMakeId, CancellationToken cancellationToken = default)
+        {
+            return await this._context.VehicleModels
+                .Where(vm => vm.MakeId == vehicleMakeId)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task UpdateAsync(VehicleModel vehicleModel, CancellationToken cancellationToken = default)
+        {
+            this._context.VehicleModels.Update(vehicleModel);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(VehicleModel vehicleModel, CancellationToken cancellationToken = default)
+        {
+            this._context.VehicleModels.Remove(vehicleModel);
+            await Task.CompletedTask;
+        }
     }
 }

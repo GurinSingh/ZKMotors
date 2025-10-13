@@ -160,6 +160,17 @@ namespace ZK.Services.Vehicles
             await this._repositoryManager.VehicleRepository.UpdateAsync(vehicle, cancellationToken);
             await this._repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<ViewVehicleDTO> GetVehicleInformation(int vehicleMakeId, int vehicleModelId, int year, string trim, CancellationToken cancellationToken)
+        {
+            var vehicle = await this._repositoryManager.VehicleRepository
+                .GetAsync(v => v.MakeId == vehicleMakeId && v.ModelId == vehicleModelId
+                    && ((year !=0 && v.Year == year) || year == 0)
+                    && ((!string.IsNullOrEmpty(trim) && v.Trim.ToLower() == trim.ToLower()) || string.IsNullOrEmpty(trim)), cancellationToken);
+            if (vehicle == null)
+                return null;
+            return this.MapToDTO(vehicle);
+        }
         #region private methods
         private ViewVehicleDTO MapToDTO(Vehicle vehicle)
         {

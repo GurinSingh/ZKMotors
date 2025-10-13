@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZK.Services.Abstractions.Account;
+﻿using ZK.Services.Abstractions.Account;
 using ZK.Services.Abstractions.Users;
 using ZK.Services.Abstractions.Vehicles;
 
@@ -16,5 +11,6 @@ namespace ZK.Services.Abstractions
         IBodyTypeService BodyTypeService { get; }
         IAuthenticationService AuthenticationService { get; }
         IUserService UserService { get; }
+        IVehicleModelService VehicleModelService { get; }
     }
 }

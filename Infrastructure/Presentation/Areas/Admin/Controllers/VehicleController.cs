@@ -9,7 +9,7 @@ namespace ZK.Presentation.Areas.Admin.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("admin/[controller]")]
+    [Route("api/admin/[controller]")]
     public class VehicleController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -17,27 +17,30 @@ namespace ZK.Presentation.Areas.Admin.Controllers
         {
             _serviceManager = serviceManager;
         }
+        
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
             var vehicle = await _serviceManager.VehicleService.GetAllAsync(cancellationToken);
             return Ok(vehicle);
         }
+        
         [HttpPost("Add")]
-        public async Task<IActionResult> AddAsync([FromForm] AddVehicleDTO value, IList<IFormFile> imageData, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddAsync([FromBody] AddVehicleDTO value, CancellationToken cancellationToken)
         {
             //code to be removed
-            for (int i = 0, l = imageData.Count; i < l; i++)
-                value.Images.Add(new AddVehicleImageDTO
-                {
-                    FileName = imageData[i].FileName,
-                    ContentType = imageData[i].ContentType,
-                    ImageData = imageData[i]
-                });
+            //for (int i = 0, l = imageData.Count; i < l; i++)
+            //    value.Images.Add(new AddVehicleImageDTO
+            //    {
+            //        FileName = imageData[i].FileName,
+            //        ContentType = imageData[i].ContentType,
+            //        ImageData = imageData[i]
+            //    });
 
             await this._serviceManager.VehicleService.AddAsync(value, cancellationToken);
             return Ok();
         }
+        
         [HttpPut("update")]
         public async Task<IActionResult> UpdateAsync([FromForm] UpdateVehicleDTO updateVehicleDTO, IList<IFormFile> imageData, CancellationToken cancellationToken)
         {
@@ -63,6 +66,7 @@ namespace ZK.Presentation.Areas.Admin.Controllers
             await this._serviceManager.VehicleService.MarkAsSold(vehicleId, cancellationToken);
             return Ok();
         }
+        
         [HttpPost("AddVehicleMake")]
         public async Task<IActionResult> AddVehicleMakeAsync([FromQuery] AddVehicleMakeDTO addVehicleMakeDTO, IFormFile imageData, CancellationToken cancellationToken)
         {
@@ -72,6 +76,7 @@ namespace ZK.Presentation.Areas.Admin.Controllers
             await this._serviceManager.VehicleMakeService.AddAsync(addVehicleMakeDTO, cancellationToken);
             return Ok();
         }
+        
         [HttpPut("UpdateVehicleMake")]
         public async Task<IActionResult> UpdateVehicleMakeAsync(UpdateVehicleMakeDTO updateVehicleMakeDto, IFormFile imageData, CancellationToken cancellation)
         {
@@ -80,6 +85,13 @@ namespace ZK.Presentation.Areas.Admin.Controllers
 
             await this._serviceManager.VehicleMakeService.UpdateAsync(updateVehicleMakeDto, cancellation);
             return Ok();
+        }
+
+        [HttpGet("GetVehicleInformation")]
+        public async Task<IActionResult> GetVehicleInformation([FromQuery] int vehicleMakeId, int vehicleModelId, int year = default, string trim = default, CancellationToken cancellationToken = default)
+        {
+            var vehicleInformation = await this._serviceManager.VehicleService.GetVehicleInformation(vehicleMakeId, vehicleModelId, year, trim, cancellationToken);
+            return Ok(vehicleInformation);
         }
     }
 }

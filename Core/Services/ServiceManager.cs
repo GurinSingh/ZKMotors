@@ -24,6 +24,7 @@ namespace ZK.Services
         private readonly Lazy<IBodyTypeService> _lazyBodyTypeService;
         private readonly Lazy<IAuthenticationService> _lazyAuthenticationService;
         private readonly Lazy<IUserService> _lazyUserService;
+        private readonly Lazy<IVehicleModelService> _lazyVehicleModelService;
 
 
         public ServiceManager(IRepositoryManager repositoryManager, IConfiguration configuration, SignInManager<User> signInManager)
@@ -33,6 +34,7 @@ namespace ZK.Services
             this._lazyBodyTypeService = new Lazy<IBodyTypeService>(() => new BodyTypeService(repositoryManager));
             this._lazyAuthenticationService = new Lazy<IAuthenticationService>(()=> new AuthenticationService(repositoryManager, configuration, signInManager));
             this._lazyUserService = new Lazy<IUserService>(()=> new UserService(repositoryManager));
+            this._lazyVehicleModelService = new Lazy<IVehicleModelService>(()=> new VehicleModelService(repositoryManager));
         }
 
         public IVehicleService VehicleService => _lazyVehicleService.Value;
@@ -40,5 +42,6 @@ namespace ZK.Services
         public IBodyTypeService BodyTypeService => _lazyBodyTypeService.Value;
         public IAuthenticationService AuthenticationService => _lazyAuthenticationService.Value;
         public IUserService UserService => _lazyUserService.Value;
+        public IVehicleModelService VehicleModelService => _lazyVehicleModelService.Value;
     }
 }

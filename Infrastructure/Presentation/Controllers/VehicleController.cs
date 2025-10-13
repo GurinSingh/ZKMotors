@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Contracts.DTOs.Vehicles;
+using ZK.Domain.Entities.Vehicles;
 using ZK.Services.Abstractions;
 
 namespace ZK.Presentation.Controllers
@@ -43,6 +45,20 @@ namespace ZK.Presentation.Controllers
         {
             var vehicleMake = await this._serviceManager.VehicleMakeService.GetAllAsync(cancellationToken);
             return Ok(vehicleMake);
+        }
+
+        [HttpGet("GetVehicleModels")]
+        public async Task<IActionResult> GetVehicleAllModels(CancellationToken cancellationToken)
+        {
+            var vehicleModel = await this._serviceManager.VehicleModelService.GetAllAsync(cancellationToken);
+            return Ok(vehicleModel);
+        }
+
+        [HttpGet("GetVehicleModels/{vehicleMakeId}")]
+        public async Task<IActionResult> GetVehicleModelsByMakeId(int vehicleMakeId, CancellationToken cancellationToken)
+        {
+            var vehicleModel = await this._serviceManager.VehicleModelService.GetByMakeIdAsync(vehicleMakeId, cancellationToken);
+            return Ok(vehicleModel);
         }
 
         [HttpGet("GetBodyTypes")]

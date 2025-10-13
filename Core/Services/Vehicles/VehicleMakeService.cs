@@ -64,7 +64,7 @@ namespace ZK.Services.Vehicles
 
             return new ViewVehicleMakeDTO
             {
-                Id = vehicleMake.VehicleMakeId,
+                VehicleMakeId = vehicleMake.VehicleMakeId,
                 Name = vehicleMake.Name,
                 ImageBase64 = vehicleMake.ImageData != null ? Convert.ToBase64String(vehicleMake.ImageData) : null
             };
