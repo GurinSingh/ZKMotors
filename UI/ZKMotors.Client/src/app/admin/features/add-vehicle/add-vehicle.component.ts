@@ -38,7 +38,7 @@ export class AddVehicleComponent implements OnInit {
     numberOfOwners: new FormControl('', Validators.required),
     seatingCapacity: new FormControl('', Validators.required),
     numberOfDoors: new FormControl('', Validators.required),
-    images: new FormControl(''),
+    images: new FormControl({}),
   });
 
   constructor(private _vehicleMakeService: VehicleMakeService
@@ -57,6 +57,7 @@ export class AddVehicleComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.addVehicleForm.value);
     debugger;
     this._vehicleService.add(<any>this.addVehicleForm.value).subscribe({
       next: (value: IVehicle)=>{
@@ -76,6 +77,8 @@ export class AddVehicleComponent implements OnInit {
     for(let i = 0, l = files.length; i<l; i++){
       this.selectedImages.push(URL.createObjectURL(files[i]))
     }
+    
+    this.addVehicleForm.patchValue({images: files});
   }
 
   private loadAllVehicleMakes(): void {

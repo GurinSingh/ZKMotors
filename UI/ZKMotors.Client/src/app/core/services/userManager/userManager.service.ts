@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../dataAccess/user/user.service';
-import { ILoginRequest, IRegisterRequest, IUser } from 'app/core/models/user-service.model';
+import { ILoginRequest, IRegisterRequest, IUser } from 'app/core/models/services/dataAccess/user-service.model';
 import { NotExpr } from '@angular/compiler';
 import { Observable, tap } from 'rxjs';
 

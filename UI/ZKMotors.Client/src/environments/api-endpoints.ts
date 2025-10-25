@@ -13,5 +13,6 @@ export class ApiEndpoints {
     static get loginUser() { return this._baseAdmin + 'account/login'}
     static get getAllVehiclesAsAdmin() { return this._baseAdmin + 'vehicle/get'}
     static get addVehicles() { return this._baseAdmin + 'vehicle/add'}
-    static get getVehicleInformation() { return this._baseAdmin + 'vehicle/GetVehicleInformation'}
+    static get getVehicleInformation() { return this._baseAdmin + 'vehicle/getVehicleInformation'}
+    static get getVehicleCount() { return this._baseAdmin + 'vehicle/GetVehicleCount'}
 }

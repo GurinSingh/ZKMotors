@@ -12,7 +12,7 @@ using ZK.Services.Abstractions;
 namespace ZK.Presentation.Areas.Admin.Controllers
 {
     [ApiController]
-    [Route("admin/[controller]")]
+    [Route("api/admin/[controller]")]
     public class AccountController: ControllerBase
     {
         private readonly IServiceManager _serviceManager;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IVehicleMake } from 'app/core/models/vehicle-make.model';
+import { IVehicleMake } from 'app/core/models/services/dataAccess/vehicle-make.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 

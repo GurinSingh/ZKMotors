@@ -1,10 +1,10 @@
 
 //models
-export * from './models/body-type.model';
-export * from './models/user-service.model';
-export * from './models/vehicle-make.model';
-export * from './models/vehicle-model.model';
-export * from './models/vehicle.model';
+export * from './models/services/dataAccess/body-type.model';
+export * from './models/services/dataAccess/user-service.model';
+export * from './models/services/dataAccess/vehicle-make.model';
+export * from './models/services/dataAccess/vehicle-model.model';
+export * from './models/services/dataAccess/vehicle.model';
 
 //interceptors
 export { jwtInterceptor } from './interceptors/jwt.interceptor';

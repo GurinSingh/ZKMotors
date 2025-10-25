@@ -1,2 +1,19 @@
-
-<p>this is dashboard</p>
+<div class="row badge-container align-items-stretch">
+    @for (item of this.tilesDisplayInformation; track $index) {
+    <div class="col-6 col-md-3 my-3 my-3 badge-items">
+        <div class="card shadow-sm shadow-dark text-white text-center">
+            <div class="card-body" [ngClass]="item.css">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <i class="bi fs-2" [ngClass]="item.icon"></i>
+                    </div>
+                    <div class="col-7 ps-0">
+                        <p class="pt-3 fw-bold h5">{{item.data}}</p>
+                        <p class="pb-3"><small>{{item.text}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IVehicle } from 'app/core/models/vehicle.model';
+import { IVehicle, IVehicleCount } from 'app/core/models/services/dataAccess/vehicle.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 
@@ -17,5 +17,13 @@ export class VehicleService {
 
   add(vehicle: IVehicle): Observable<IVehicle> {
     return this._http.post<IVehicle>(ApiEndpoints.addVehicles, vehicle);
+  }
+
+  getVehiclesForSale(): Observable<IVehicle[]> {
+    return this._http.get<IVehicle[]>(ApiEndpoints.getAllVehicles);
+  }
+
+  getVehicleCount(): Observable<IVehicleCount>{
+    return this._http.get<IVehicleCount>(ApiEndpoints.getVehicleCount);
   }
 }

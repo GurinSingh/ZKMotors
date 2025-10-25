@@ -34,3 +34,10 @@ export interface IVehicleImage{
     contentType: string;
     fileName: string;
 }
+
+export interface IVehicleCount{
+    onSale: number;
+    sold: number;
+    onHold: number;
+    total: number;
+}

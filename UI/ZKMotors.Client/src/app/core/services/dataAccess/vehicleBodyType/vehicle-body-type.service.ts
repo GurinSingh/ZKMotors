@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IBodyType } from 'app/core/models/body-type.model';
+import { IBodyType } from 'app/core/models/services/dataAccess/body-type.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 

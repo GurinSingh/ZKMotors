@@ -1,1 +1,1 @@
-export * from './add-vehicle/add-vehicle.model';
+export * from './features/add-vehicle.model';

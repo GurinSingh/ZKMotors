@@ -4,7 +4,7 @@ import { DashboardComponent } from "./pages";
 
 export const adminRoutes: Routes = [
     {
-        path: '', component: DashboardComponent
+        path: 'dashboard', component: DashboardComponent
     },
     { 
         path: 'vehicle/add', 
