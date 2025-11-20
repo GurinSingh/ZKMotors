@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZK.Contracts.DTOs.Dashboard;
 using ZK.Contracts.DTOs.Vehicles;
 
 namespace ZK.Services.Abstractions.Vehicles
@@ -17,6 +18,7 @@ namespace ZK.Services.Abstractions.Vehicles
         Task MarkAsSold(int vehicleId, CancellationToken cancellationToken);
         Task<IEnumerable<ViewVehicleDTO>> GetRelatedVehicleById(int vehicleId, CancellationToken cancellationToken);
         Task<ViewVehicleDTO> GetVehicleInformation(int vehicleMakeId, int vehicleModelId, int year, string trim, CancellationToken cancellationToken);
-        Task<VehicleCount> GetVehicleCount(CancellationToken cancellationToken);
+        Task<DashboardStatsDTO> GetDashboardStats(CancellationToken cancellationToken);
+        Task<IEnumerable<ViewVehicleStatusDTO>> GetAllVehicleStatusesAsync(CancellationToken cancellationToken);
     }
 }

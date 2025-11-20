@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IVehicleMake } from 'app/core/models/services/dataAccess/vehicle-make.model';
+import { IVehicleMakeModel } from 'app/core/models/services/dataAccess/vehicle-make.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 
@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 export class VehicleMakeService {
   constructor(private _http: HttpClient) {}
 
-  create(vehicleMake: IVehicleMake):Observable<IVehicleMake>{
-    return this._http.post<IVehicleMake>(ApiEndpoints.addVehicles, vehicleMake);
+  create(vehicleMake: IVehicleMakeModel):Observable<IVehicleMakeModel>{
+    return this._http.post<IVehicleMakeModel>(ApiEndpoints.addVehicles, vehicleMake);
   }
 
-  getAll(): Observable<IVehicleMake[]>{
-    return this._http.get<IVehicleMake[]>(ApiEndpoints.getAllVehicleMakes);
+  getAll(): Observable<IVehicleMakeModel[]>{
+    return this._http.get<IVehicleMakeModel[]>(ApiEndpoints.getAllVehicleMakes);
   }
 }

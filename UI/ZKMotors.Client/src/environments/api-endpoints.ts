@@ -8,11 +8,15 @@ export class ApiEndpoints {
     static get getAllVehicleMakes() { return this._base + 'vehicle/getVehicleMakes'}
     static get getAllVehicleModels() { return this._base + 'vehicle/getVehicleModels'}
     static get getAllBodyTypes() { return this._base + 'vehicle/getBodyTypes'}
+    static get getAllVehicleStatus() { return this._base + 'vehicle/GetVehicleStatuses'}
+    static get getAllFuelTypes() { return this._base + 'vehicle/GetFuelTypes'}
+    static get getAllTransmissions() { return this._base + 'vehicle/GetTransmissions'}
+    static get getAllDrivetrains() { return this._base + 'vehicle/GetDrivetrains'}
 
     static get registerUser() { return this._baseAdmin + 'account/register'}
     static get loginUser() { return this._baseAdmin + 'account/login'}
     static get getAllVehiclesAsAdmin() { return this._baseAdmin + 'vehicle/get'}
     static get addVehicles() { return this._baseAdmin + 'vehicle/add'}
     static get getVehicleInformation() { return this._baseAdmin + 'vehicle/getVehicleInformation'}
-    static get getVehicleCount() { return this._baseAdmin + 'vehicle/GetVehicleCount'}
+    static get getDashboardStats() { return this._baseAdmin + 'dashboard/GetStats'}
 }

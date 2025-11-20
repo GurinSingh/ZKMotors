@@ -28,6 +28,10 @@ namespace ZK.Persistence.Repositories
         private readonly Lazy<IRoleRepository> _lazyRoleRepository;
         private readonly Lazy<IRoleClaimRepository> _lazyRoleClaimRepository;
         private readonly Lazy<IUserRoleRepository> _lazyUserRoleRepository;
+        private readonly Lazy<IVehicleStatusRepository> _lazyVehicleStatusRepository;
+        private readonly Lazy<IFuelTypeRepository> _lazyFuelTypeRepository;
+        private readonly Lazy<ITransmissionRepository> _lazyTransmissionRepository;
+        private readonly Lazy<IDrivetrainRepository> _lazyDrivetrainRepository;
 
         private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
@@ -43,6 +47,10 @@ namespace ZK.Persistence.Repositories
             this._lazyRoleRepository = new Lazy<IRoleRepository>(() => new RoleRepository(context));
             this._lazyRoleClaimRepository = new Lazy<IRoleClaimRepository>(() => new RoleClaimRepository(context));
             this._lazyUserRoleRepository = new Lazy<IUserRoleRepository>(() => new UserRoleRepository(context));
+            this._lazyVehicleStatusRepository = new Lazy<IVehicleStatusRepository>(() => new VehicleStatusRepository(context));
+            this._lazyFuelTypeRepository = new Lazy<IFuelTypeRepository>(() => new FuelTypeRepository(context));
+            this._lazyTransmissionRepository = new Lazy<ITransmissionRepository>(() => new TransmissionRepository(context));
+            this._lazyDrivetrainRepository = new Lazy<IDrivetrainRepository>(() => new DrivetrainRepository(context));
 
             this._lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(context));
         }
@@ -57,6 +65,10 @@ namespace ZK.Persistence.Repositories
         public IRoleRepository RoleRepository => this._lazyRoleRepository.Value;
         public IRoleClaimRepository RoleClaimRepository => this._lazyRoleClaimRepository.Value;
         public IUserRoleRepository UserRoleRepository => this._lazyUserRoleRepository.Value;
+        public IVehicleStatusRepository VehicleStatusRepository => this._lazyVehicleStatusRepository.Value;
+        public IFuelTypeRepository FuelTypeRepository => this._lazyFuelTypeRepository.Value;
+        public ITransmissionRepository TransmissionRepository => this._lazyTransmissionRepository.Value;
+        public IDrivetrainRepository DrivetrainRepository => this._lazyDrivetrainRepository.Value;
 
         public IUnitOfWork UnitOfWork => this._lazyUnitOfWork.Value;
     }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IVehicle, IVehicleCount } from 'app/core/models/services/dataAccess/vehicle.model';
+import { IAddVehicleModel, IDashboardStats, IViewVehicleModel } from 'app/core/models/services/dataAccess/vehicle.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 
@@ -10,20 +10,20 @@ import { Observable } from 'rxjs';
 export class VehicleService {
   constructor(private _http: HttpClient) { }
 
-  getVehicleInformation(vehicleMakeId: number, vehicleModelId: number, year?: number, trim?: string): Observable<IVehicle> {
+  getVehicleInformation(vehicleMakeId: number, vehicleModelId: number, year?: number, trim?: string): Observable<IViewVehicleModel> {
     let q = 'vehicleMakeId=' + vehicleMakeId + '&vehicleModelId=' + vehicleModelId + '&year=' + year + '&trim=' + trim;
-    return this._http.get<IVehicle>(ApiEndpoints.getVehicleInformation + '?' + q);
+    return this._http.get<IViewVehicleModel>(ApiEndpoints.getVehicleInformation + '?' + q);
   }
 
-  add(vehicle: IVehicle): Observable<IVehicle> {
-    return this._http.post<IVehicle>(ApiEndpoints.addVehicles, vehicle);
+  add(vehicle: IAddVehicleModel): Observable<IAddVehicleModel> {
+    return this._http.post<IAddVehicleModel>(ApiEndpoints.addVehicles, vehicle);
   }
 
-  getVehiclesForSale(): Observable<IVehicle[]> {
-    return this._http.get<IVehicle[]>(ApiEndpoints.getAllVehicles);
+  getVehiclesForSale(): Observable<IViewVehicleModel[]> {
+    return this._http.get<IViewVehicleModel[]>(ApiEndpoints.getAllVehicles);
   }
 
-  getVehicleCount(): Observable<IVehicleCount>{
-    return this._http.get<IVehicleCount>(ApiEndpoints.getVehicleCount);
+  getDashboardStats(): Observable<IDashboardStats>{
+    return this._http.get<IDashboardStats>(ApiEndpoints.getDashboardStats);
   }
 }

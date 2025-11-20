@@ -17,27 +17,8 @@ namespace ZK.Persistence.Configurations.Vehicles
 
             builder.HasKey(v => v.VehicleId).IsClustered(true);
             builder.Property(v => v.Slug).IsRequired().HasMaxLength(45);
-            builder.Property(v => v.MakeId).IsRequired();
-            builder.Property(v => v.ModelId).IsRequired();
-            builder.Property(v => v.Year).IsRequired();
-            builder.Property(v => v.IsSold);
-            builder.Property(v => v.ExteriorColor);
-            builder.Property(v => v.InteriorColor);
-            builder.Property(v => v.Mileage);
-            builder.Property(v => v.Description).HasMaxLength(500);
+            builder.Property(v => v.StatusId).IsRequired();
             builder.Property(v => v.Price).HasPrecision(10, 2);
-            builder.Property(v => v.VIN).HasMaxLength(17);
-            builder.Property(v => v.Trim).HasMaxLength(50);
-            builder.Property(v => v.BodyTypeId).IsRequired();
-            builder.Property(v => v.EngineId);
-            builder.Property(v => v.TransmissionId);
-            builder.Property(v => v.FuelTypeId);
-            builder.Property(v => v.DrivetrainId);
-            builder.Property(v => v.NumberOfOwners);
-            builder.Property(v => v.NumberOfDoors);
-            builder.Property(v => v.SeatingCapacity);
-            builder.Property(v => v.NumberOfDoors);
-            builder.Property(v => v.Features).HasMaxLength(1000);
             builder.Property(v => v.AddedDateTime).IsRequired();
             builder.Property(v => v.LastUpdatedDateTime).IsRequired();
 
@@ -55,6 +36,16 @@ namespace ZK.Persistence.Configurations.Vehicles
             builder.HasMany(v => v.VehicleImages)
                 .WithOne(vi => vi.Vehicle)
                 .HasForeignKey(vi => vi.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(v=> v.VehicleBasicIdentification)
+                .WithOne(vbi => vbi.Vehicle)
+                .HasForeignKey<VehicleBasicIdentification>(vbi => vbi.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(v => v.VehicleTechnicalSpecification)
+                .WithOne(vts => vts.Vehicle)
+                .HasForeignKey<VehicleTechnicalSpecification>(vts => vts.VehicleId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

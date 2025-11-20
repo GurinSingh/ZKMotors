@@ -1,43 +1,30 @@
-export interface IVehicle {
-    id:number;
-    slug: string;
-    year: number;
-    isSold: boolean;
-    exteriorColor: string;
-    interiorColor: string;
-    description: string;
+import { IAddVehicleBasicIdentificationModel, IViewVehicleBasicIdentificationModel } from "./vehicle-basic-identification.model";
+import { IViewVehicleImageModel, IAddVehicleImageModel } from "./vehicle-image.model";
+import { IViewVehicleTechnicalSpecificationModel, IAddVehicleTechnicalSpecificationModel } from "./vehicle-technical-specification.model";
+
+export interface IViewVehicleModel {
+    vehicleId: number;
     price: number;
-    mileage: number;
-    make: string;
-    model: string;
-    vin: string;
-    trim: string;
-    bodyType: string;
-    engine: string;
-    transmission: string;
-    fuelType: string;
-    drivetrain: string;
-    numberOfOwners: number;
-    numberOfDoors: number;
-    seatingCapacity: number;
-    features: string;
+    slug: string;
     addedDateTime: Date;
     lastUpdatedDateTime: Date;
 
-    images: IVehicleImage[];
+    basicIdentification: IViewVehicleBasicIdentificationModel;
+    technicalSpecification: IViewVehicleTechnicalSpecificationModel;
+    images: IViewVehicleImageModel[];
+}
+export interface IAddVehicleModel{
+    vehicleStatusId: number;
+    price: number;
+
+    basicIdentification: IAddVehicleBasicIdentificationModel;
+    technicalSpecification: IAddVehicleTechnicalSpecificationModel;
+    images: IAddVehicleImageModel[];
 }
 
-export interface IVehicleImage{
-    vehicleImageId: number;
-    vehicleId: number;
-    imageBase64: string;
-    contentType: string;
-    fileName: string;
-}
-
-export interface IVehicleCount{
+export interface IDashboardStats {
     onSale: number;
     sold: number;
     onHold: number;
-    total: number;
+    totalRevenue: number;
 }

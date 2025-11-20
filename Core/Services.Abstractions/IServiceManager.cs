@@ -12,5 +12,9 @@ namespace ZK.Services.Abstractions
         IAuthenticationService AuthenticationService { get; }
         IUserService UserService { get; }
         IVehicleModelService VehicleModelService { get; }
+        IVehicleStatusService VehicleStatusService { get; }
+        IFuelTypeService FuelTypeService { get; }
+        IDrivetrainService DrivetrainService { get; }
+        ITransmissionService TransmissionService { get; }
     }
 }

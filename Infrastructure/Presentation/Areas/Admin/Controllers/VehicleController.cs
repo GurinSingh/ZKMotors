@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using ZK.Contracts.DTOs.Vehicles;
 using ZK.Services.Abstractions;
 
@@ -26,7 +25,7 @@ namespace ZK.Presentation.Areas.Admin.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> AddAsync([FromBody] AddVehicleDTO value, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddAsync([FromForm] AddVehicleDTO value, CancellationToken cancellationToken)
         {
             await this._serviceManager.VehicleService.AddAsync(value, cancellationToken);
             return Ok();
@@ -41,7 +40,7 @@ namespace ZK.Presentation.Areas.Admin.Controllers
                 {
                     FileName = imageData[i].FileName,
                     ContentType = imageData[i].ContentType,
-                    ImageData = imageData[i]
+                    Image = imageData[i]
                 });
             await this._serviceManager.VehicleService.UpdateAsync(updateVehicleDTO, cancellationToken);
             return Ok();
@@ -79,17 +78,10 @@ namespace ZK.Presentation.Areas.Admin.Controllers
         }
 
         [HttpGet("GetVehicleInformation")]
-        public async Task<IActionResult> GetVehicleInformation([FromQuery] int vehicleMakeId, int vehicleModelId, int year = default, string trim = default, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetVehicleInformationAsync([FromQuery] int vehicleMakeId, int vehicleModelId, int year = default, string trim = default, CancellationToken cancellationToken = default)
         {
             var vehicleInformation = await this._serviceManager.VehicleService.GetVehicleInformation(vehicleMakeId, vehicleModelId, year, trim, cancellationToken);
             return Ok(vehicleInformation);
-        }
-
-        [HttpGet("GetVehicleCount")]
-        public async Task<IActionResult> GetVehicleCount(CancellationToken cancellationToken)
-        {
-            var vehicleCount = await this._serviceManager.VehicleService.GetVehicleCount(cancellationToken);
-            return Ok(vehicleCount);
         }
     }
 }

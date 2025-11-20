@@ -23,6 +23,7 @@ namespace ZK.Persistence
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RoleClaim> RoleClaims { get; set; }
+        public DbSet<VehicleStatus> VehicleStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +48,13 @@ namespace ZK.Persistence
                 new VehicleModel { VehicleModelId = 7, Name = "Accord", MakeId = 3 },
                 new VehicleModel { VehicleModelId = 8, Name = "Silverado", MakeId = 4 },
                 new VehicleModel { VehicleModelId = 9, Name = "Malibu", MakeId = 4 }
+            );
+
+            // Seed Vehicle Status
+            modelBuilder.Entity<VehicleStatus>().HasData(
+                new VehicleStatus { VehicleStatusId = 1, Name = "On Sale" },
+                new VehicleStatus { VehicleStatusId = 2, Name = "Sold" },
+                new VehicleStatus { VehicleStatusId = 3, Name = "On Hold" }
             );
 
             // Seed Engine table with Description

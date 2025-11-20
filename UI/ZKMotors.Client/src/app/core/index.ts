@@ -1,9 +1,16 @@
 
 //models
 export * from './models/services/dataAccess/body-type.model';
+export * from './models/services/dataAccess/drivetrain.model';
+export * from './models/services/dataAccess/engine.model';
+export * from './models/services/dataAccess/fuel-type.model';
+export * from './models/services/dataAccess/transmission.model';
 export * from './models/services/dataAccess/user-service.model';
+export * from './models/services/dataAccess/vehicle-basic-identification.model';
+export * from './models/services/dataAccess/vehicle-image.model';
 export * from './models/services/dataAccess/vehicle-make.model';
 export * from './models/services/dataAccess/vehicle-model.model';
+export * from './models/services/dataAccess/vehicle-technical-specification.model';
 export * from './models/services/dataAccess/vehicle.model';
 
 //interceptors

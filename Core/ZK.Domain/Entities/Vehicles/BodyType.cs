@@ -12,6 +12,6 @@ namespace ZK.Domain.Entities.Vehicles
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<VehicleBasicIdentification> VehicleBasicIdentifications { get; set; }
     }
 }

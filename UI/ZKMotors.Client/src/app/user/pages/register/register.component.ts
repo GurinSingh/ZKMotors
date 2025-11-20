@@ -19,7 +19,7 @@ export class RegisterComponent {
     email: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    roleIds: new FormControl([2]),
+    roleIds: new FormControl([1]),
   });
   onSubmit(){
     debugger;

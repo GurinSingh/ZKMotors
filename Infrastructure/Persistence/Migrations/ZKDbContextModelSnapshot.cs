@@ -17,10 +17,51 @@ namespace ZK.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
+                {
+                    b.Property<int>("SaleHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaleHistoryId"));
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CustomerPhoneNo")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("SaleDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SaleHistoryId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("SaleHistoryId"));
+
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
+
+                    b.ToTable("SaleHistories", (string)null);
+                });
 
             modelBuilder.Entity("ZK.Domain.Entities.Users.Role", b =>
                 {
@@ -149,47 +190,6 @@ namespace ZK.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
-                {
-                    b.Property<int>("SaleHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaleHistoryId"));
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CustomerPhoneNo")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("SaleDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("SalePrice")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SaleHistoryId");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("SaleHistoryId"));
-
-                    b.HasIndex("VehicleId")
-                        .IsUnique();
-
-                    b.ToTable("SaleHistories", (string)null);
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.BodyType", b =>
@@ -522,37 +522,55 @@ namespace ZK.Persistence.Migrations
                     b.Property<DateTime>("AddedDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("LastUpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VehicleId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("VehicleId"));
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Vehicles", (string)null);
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleBasicIdentification", b =>
+                {
+                    b.Property<int>("VehicleBasicIdentificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleBasicIdentificationId"));
+
                     b.Property<int>("BodyTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("DrivetrainId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EngineId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExteriorColor")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Features")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int>("FuelTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InteriorColor")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsSold")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdatedDateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("MakeId")
                         .HasColumnType("int");
@@ -563,60 +581,30 @@ namespace ZK.Persistence.Migrations
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfDoors")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfOwners")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int>("SeatingCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("nvarchar(45)");
-
-                    b.Property<int>("TransmissionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Trim")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VIN")
-                        .HasMaxLength(17)
-                        .HasColumnType("nvarchar(17)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("VehicleId");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("VehicleId"));
+                    b.HasKey("VehicleBasicIdentificationId");
 
                     b.HasIndex("BodyTypeId");
-
-                    b.HasIndex("DrivetrainId");
-
-                    b.HasIndex("EngineId");
-
-                    b.HasIndex("FuelTypeId");
 
                     b.HasIndex("MakeId");
 
                     b.HasIndex("ModelId");
 
-                    b.HasIndex("Slug")
+                    b.HasIndex("VehicleId")
                         .IsUnique();
 
-                    b.HasIndex("TransmissionId");
-
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("VehicleBasicIdentification");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleImage", b =>
@@ -787,6 +775,121 @@ namespace ZK.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleStatus", b =>
+                {
+                    b.Property<int>("VehicleStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleStatusId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("VehicleStatusId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("VehicleStatuses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleStatusId = 1,
+                            Name = "On Sale"
+                        },
+                        new
+                        {
+                            VehicleStatusId = 2,
+                            Name = "Sold"
+                        },
+                        new
+                        {
+                            VehicleStatusId = 3,
+                            Name = "On Hold"
+                        });
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleTechnicalSpecification", b =>
+                {
+                    b.Property<int>("VehicleTechnicalSpecificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleTechnicalSpecificationId"));
+
+                    b.Property<int>("DrivetrainId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EngineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FuelTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Horsepower")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Kmpl_City")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Kmpl_Combined")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Kmpl_Highway")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfDoors")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfOwners")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatingCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Torque")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransmissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VehicleTechnicalSpecificationId");
+
+                    b.HasIndex("DrivetrainId");
+
+                    b.HasIndex("EngineId");
+
+                    b.HasIndex("FuelTypeId");
+
+                    b.HasIndex("TransmissionId");
+
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
+
+                    b.ToTable("VehicleTechnicalSpecification");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
+                {
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
+                        .WithOne("SaleHistory")
+                        .HasForeignKey("ZK.Domain.Entities.Sales.SaleHistory", "VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Users.RoleClaim", b =>
                 {
                     b.HasOne("ZK.Domain.Entities.Users.Role", "Role")
@@ -817,74 +920,50 @@ namespace ZK.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ZK.Domain.Entities.Sales.SaleHistory", b =>
-                {
-                    b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
-                        .WithOne("SaleHistory")
-                        .HasForeignKey("ZK.Domain.Entities.Sales.SaleHistory", "VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>
                 {
-                    b.HasOne("ZK.Domain.Entities.Vehicles.BodyType", "BodyType")
+                    b.HasOne("ZK.Domain.Entities.Vehicles.VehicleStatus", "VehicleStatus")
                         .WithMany("Vehicles")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("VehicleStatus");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleBasicIdentification", b =>
+                {
+                    b.HasOne("ZK.Domain.Entities.Vehicles.BodyType", "BodyType")
+                        .WithMany("VehicleBasicIdentifications")
                         .HasForeignKey("BodyTypeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ZK.Domain.Entities.Vehicles.Drivetrain", "Drivetrain")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("DrivetrainId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ZK.Domain.Entities.Vehicles.Engine", "Engine")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("EngineId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ZK.Domain.Entities.Vehicles.FuelType", "FuelType")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("FuelTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("ZK.Domain.Entities.Vehicles.VehicleMake", "Make")
-                        .WithMany("Vehicles")
+                        .WithMany("VehicleBasicIdentifications")
                         .HasForeignKey("MakeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ZK.Domain.Entities.Vehicles.VehicleModel", "Model")
-                        .WithMany("Vehicles")
+                        .WithMany("VehicleBasicIdentifications")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ZK.Domain.Entities.Vehicles.Transmission", "Transmission")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("TransmissionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
+                        .WithOne("VehicleBasicIdentification")
+                        .HasForeignKey("ZK.Domain.Entities.Vehicles.VehicleBasicIdentification", "VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BodyType");
-
-                    b.Navigation("Drivetrain");
-
-                    b.Navigation("Engine");
-
-                    b.Navigation("FuelType");
 
                     b.Navigation("Make");
 
                     b.Navigation("Model");
 
-                    b.Navigation("Transmission");
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleImage", b =>
@@ -909,6 +988,49 @@ namespace ZK.Persistence.Migrations
                     b.Navigation("Make");
                 });
 
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleTechnicalSpecification", b =>
+                {
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Drivetrain", "Drivetrain")
+                        .WithMany("VehicleTechnicalSpecifications")
+                        .HasForeignKey("DrivetrainId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Engine", "Engine")
+                        .WithMany("VehicleTechnicalSpecifications")
+                        .HasForeignKey("EngineId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.FuelType", "FuelType")
+                        .WithMany("VehicleTechnicalSpecifications")
+                        .HasForeignKey("FuelTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Transmission", "Transmission")
+                        .WithMany("VehicleTechnicalSpecifications")
+                        .HasForeignKey("TransmissionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ZK.Domain.Entities.Vehicles.Vehicle", "Vehicle")
+                        .WithOne("VehicleTechnicalSpecification")
+                        .HasForeignKey("ZK.Domain.Entities.Vehicles.VehicleTechnicalSpecification", "VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Drivetrain");
+
+                    b.Navigation("Engine");
+
+                    b.Navigation("FuelType");
+
+                    b.Navigation("Transmission");
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("ZK.Domain.Entities.Users.Role", b =>
                 {
                     b.Navigation("RoleClaims");
@@ -923,44 +1045,53 @@ namespace ZK.Persistence.Migrations
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.BodyType", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleBasicIdentifications");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Drivetrain", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleTechnicalSpecifications");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Engine", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleTechnicalSpecifications");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.FuelType", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleTechnicalSpecifications");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Transmission", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleTechnicalSpecifications");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.Vehicle", b =>
                 {
                     b.Navigation("SaleHistory");
 
+                    b.Navigation("VehicleBasicIdentification");
+
                     b.Navigation("VehicleImages");
+
+                    b.Navigation("VehicleTechnicalSpecification");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleMake", b =>
                 {
-                    b.Navigation("VehicleModels");
+                    b.Navigation("VehicleBasicIdentifications");
 
-                    b.Navigation("Vehicles");
+                    b.Navigation("VehicleModels");
                 });
 
             modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleModel", b =>
+                {
+                    b.Navigation("VehicleBasicIdentifications");
+                });
+
+            modelBuilder.Entity("ZK.Domain.Entities.Vehicles.VehicleStatus", b =>
                 {
                     b.Navigation("Vehicles");
                 });

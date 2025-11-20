@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IBodyType } from 'app/core/models/services/dataAccess/body-type.model';
+import { IViewBodyTypeModel } from 'app/core/models/services/dataAccess/body-type.model';
 import { ApiEndpoints } from 'environments/api-endpoints';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class VehicleBodyTypeService {
   constructor(private _http: HttpClient){}
 
-  getAll(): Observable<IBodyType[]>{
-    return this._http.get<IBodyType[]>(ApiEndpoints.getAllBodyTypes);
+  getAll(): Observable<IViewBodyTypeModel[]>{
+    return this._http.get<IViewBodyTypeModel[]>(ApiEndpoints.getAllBodyTypes);
   }
 }

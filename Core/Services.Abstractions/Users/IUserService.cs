@@ -11,7 +11,7 @@ namespace ZK.Services.Abstractions.Users
     {
         Task CreateAsync(AddUserDTO addUserDTO, CancellationToken cancellationToken);
         Task DeleteAsync(int Id, CancellationToken cancellationToken);
-        Task<ViewUserDTO> GetById(int id, CancellationToken cancellationToken);
+        Task<ViewUserDTO> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<IEnumerable<ViewUserDTO>> GetAllAsync(CancellationToken cancellationToken);
         Task UpdateAsync(UpdateUserDTO updateUserDTO, CancellationToken cancellationToken);
         Task<ViewUserDTO> GetByUserNameAsync(string userName, CancellationToken cancellationToken);

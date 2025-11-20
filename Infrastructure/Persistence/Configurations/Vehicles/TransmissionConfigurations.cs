@@ -25,7 +25,7 @@ namespace ZK.Persistence.Configurations.Vehicles
             builder.HasIndex(t => t.Name)
                 .IsUnique();
             
-            builder.HasMany(t => t.Vehicles)
+            builder.HasMany(t => t.VehicleTechnicalSpecifications)
                 .WithOne(v=> v.Transmission)
                 .HasForeignKey(v => v.TransmissionId)
                 .OnDelete(DeleteBehavior.NoAction);

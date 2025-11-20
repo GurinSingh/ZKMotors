@@ -7,11 +7,8 @@ using ZK.Domain.Entities.Sales;
 
 namespace ZK.Domain.Respositories.Sales
 {
-    public interface ISaleHistoryRepository
+    public interface ISaleHistoryRepository: IBaseRepository<SaleHistory>
     {
-        Task AddAsync(SaleHistory saleHistory, CancellationToken cancellationToken);
-        Task<SaleHistory> GetByIdAsync(int saleHistoryId, CancellationToken cancellationToken);
-        Task<IEnumerable<SaleHistory>> GetAllAsync(CancellationToken cancellationToken);
-        Task UpdateAsync(SaleHistory saleHistory, CancellationToken cancellationToken);
+        Task<decimal> GetTotalRevenueAsync(CancellationToken cancellationToken);
     }
 }

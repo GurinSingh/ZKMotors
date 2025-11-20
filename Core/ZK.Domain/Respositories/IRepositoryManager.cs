@@ -21,6 +21,10 @@ namespace ZK.Domain.Respositories
         IRoleRepository RoleRepository { get; }
         IRoleClaimRepository RoleClaimRepository { get; }
         IUserRoleRepository UserRoleRepository { get; }
+        IVehicleStatusRepository VehicleStatusRepository { get; }
+        IFuelTypeRepository FuelTypeRepository { get; }
+        ITransmissionRepository TransmissionRepository { get; }
+        IDrivetrainRepository DrivetrainRepository { get; }
 
         IUnitOfWork UnitOfWork { get; }
     }

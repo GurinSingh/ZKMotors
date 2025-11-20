@@ -10,14 +10,14 @@ namespace ZK.Domain.Entities.Vehicles
     {
         public VehicleMake()
         {
-            this.Vehicles = new HashSet<Vehicle>();
+            this.VehicleBasicIdentifications = new HashSet<VehicleBasicIdentification>();
             this.VehicleModels = new HashSet<VehicleModel>();
         }
         public int VehicleMakeId { get; set; }
         public string Name { get; set; }
         public byte[] ImageData { get; set; }
 
-        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<VehicleBasicIdentification> VehicleBasicIdentifications { get; set; }
         public virtual ICollection<VehicleModel> VehicleModels { get; set; }
     }
 }

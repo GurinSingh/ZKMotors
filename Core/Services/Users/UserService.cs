@@ -35,7 +35,7 @@ namespace ZK.Services.Users
             return users.Select(u => this.MapToDTO(u)).ToList();
         }
 
-        public async Task<ViewUserDTO> GetById(int id, CancellationToken cancellationToken)
+        public async Task<ViewUserDTO> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             var user = await this._repositoryManager.UserRepository.GetByIdAsync(id, cancellationToken);
             return this.MapToDTO(user);

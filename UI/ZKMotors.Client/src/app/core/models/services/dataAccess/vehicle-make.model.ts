@@ -1,4 +1,4 @@
-export interface IVehicleMake{
+export interface IVehicleMakeModel{
     vehicleMakeId: number;
     name: string;
 }

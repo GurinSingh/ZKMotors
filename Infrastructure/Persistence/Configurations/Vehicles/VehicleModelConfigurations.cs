@@ -22,7 +22,7 @@ namespace ZK.Persistence.Configurations.Vehicles
             builder.Property(v => v.VehicleModelId)
                 .UseIdentityColumn(1, 1);
 
-            builder.HasMany(vm => vm.Vehicles)
+            builder.HasMany(vm => vm.VehicleBasicIdentifications)
                 .WithOne(v => v.Model)
                 .HasForeignKey(v => v.ModelId)
                 .OnDelete(DeleteBehavior.NoAction);

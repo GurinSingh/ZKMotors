@@ -37,5 +37,16 @@ namespace ZK.Persistence.Repositories.Sales
             this._context.SaleHistories.Update(saleHistory);
             await Task.CompletedTask;
         }
+
+        public async Task DeleteAsync(SaleHistory saleHistory, CancellationToken cancellationToken)
+        {
+            this._context.SaleHistories.Remove(saleHistory);
+            await Task.CompletedTask;
+        }
+
+        public async Task<decimal> GetTotalRevenueAsync(CancellationToken cancellationToken)
+        {
+            return await this._context.SaleHistories.SumAsync(sh => sh.SalePrice, cancellationToken);
+        }
     }
 }

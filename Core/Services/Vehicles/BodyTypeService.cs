@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZK.Contracts.DTOs.Vehicles;
-using ZK.Domain.Entities.Vehicles;
+﻿using ZK.Contracts.DTOs.Vehicles;
 using ZK.Domain.Respositories;
 using ZK.Services.Abstractions.Vehicles;
+using ZK.Services.MappingExtensions.Vehicles;
 
 namespace ZK.Services.Vehicles
 {
@@ -21,25 +16,13 @@ namespace ZK.Services.Vehicles
         public async Task<IEnumerable<ViewBodyTypeDTO>> GetAllAsync(CancellationToken cancellationToken)
         {
             var bodyTypes = await this._repositoryManager.BodyTypeRepository.GetAllAsync(cancellationToken);
-            return bodyTypes.Select(bt => this.MapToDTO(bt));
+            return bodyTypes.Select(bt => bt.ToDTO());
         }
 
         public async Task<ViewBodyTypeDTO> GetByIdAsync(int bodyTypeId, CancellationToken cancellationToken)
         {
             var bodyType = await this._repositoryManager.BodyTypeRepository.GetByIdAsync(bodyTypeId, cancellationToken);
-            return this.MapToDTO(bodyType);
+            return bodyType.ToDTO();
         }
-
-        #region private methods
-        private ViewBodyTypeDTO MapToDTO(BodyType bodyType)
-        {
-            return new ViewBodyTypeDTO
-            {
-                BodyTypeId = bodyType.BodyTypeId,
-                Name = bodyType.Name,
-                Description = bodyType.Description
-            };
-        }
-        #endregion
     }
 }

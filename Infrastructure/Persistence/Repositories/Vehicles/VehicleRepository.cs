@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using ZK.Domain.Entities.Vehicles;
+using ZK.Domain.Enums;
 using ZK.Domain.Respositories.Vehicles;
 
 namespace ZK.Persistence.Repositories.Vehicles
@@ -30,7 +26,7 @@ namespace ZK.Persistence.Repositories.Vehicles
 
         public async Task<IEnumerable<Vehicle>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await this._context.Vehicles.Where(v=> !v.IsSold).WithAllJoins().ToListAsync(cancellationToken);
+            return await this._context.Vehicles.Where(v=> v.StatusId == (int)eVehicleStatus.OnSale).WithAllJoins().ToListAsync(cancellationToken);
         }
 
         public async Task<Vehicle> GetByIdAsync(int vehicleId, CancellationToken cancellationToken)
@@ -56,16 +52,10 @@ namespace ZK.Persistence.Repositories.Vehicles
     {
         public static IQueryable<Vehicle> WithAllJoins(this IQueryable<Vehicle> query)
         {
-            return query.Include(v => v.Make)
-                        .Include(v => v.Model)
+            return query.Include(v => v.VehicleBasicIdentification)
+                        .Include(v => v.VehicleTechnicalSpecification)
                         .Include(v => v.SaleHistory)
-                        .Include(v=> v.VehicleImages)
-                        .Include(v => v.BodyType)
-                        .Include(v => v.Engine)
-                        .Include(v => v.Transmission)
-                        .Include(v => v.FuelType)
-                        .Include(v => v.Drivetrain);
+                        .Include(v => v.VehicleImages);
         }
     }
-
 }
